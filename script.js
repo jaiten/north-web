@@ -15,10 +15,18 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 
-// --- Nav: shadow once you leave the top ---
+// --- Nav: deeper shadow once you leave the top ---
 
 const nav = document.getElementById("nav");
 addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 10), { passive: true });
+
+// --- Theme toggle ---
+
+document.getElementById("btn-theme").addEventListener("click", () => {
+  const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  document.documentElement.dataset.theme = next;
+  try { localStorage.setItem("north-theme", next); } catch { /* private mode */ }
+});
 
 // --- Eyes follow the cursor (hero orb, companion orb, vignette orbs) ---
 

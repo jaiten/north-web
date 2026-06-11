@@ -75,6 +75,8 @@
   }
   </script>
 
+  <!-- Apply the saved theme before first paint to avoid a flash -->
+  <script>document.documentElement.dataset.theme = localStorage.getItem("north-theme") || "light";</script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -91,7 +93,13 @@
       <a href="#who">Who it's for</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a class="btn primary" href="#install">Add to Chrome</a>
+    <div class="nav-right">
+      <button class="theme-btn" id="btn-theme" aria-label="Switch between light and dark theme">
+        <svg class="ico-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ico-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5 5l1.8 1.8M17.2 17.2L19 19M19 5l-1.8 1.8M6.8 17.2L5 19"/></svg>
+      </button>
+      <a class="btn primary" href="#install">Add to Chrome</a>
+    </div>
   </header>
 
   <main id="top">
@@ -317,8 +325,10 @@
             <circle class="av-eye" cx="68" cy="57" r="2.7" fill="#20234a"/>
             <path d="M53 66q7 5 14 0" stroke="#20234a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
             <path d="M32 46L60 33l28 13-28 11z" fill="#20234a"/>
-            <path d="M88 46v12" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round"/>
-            <circle cx="88" cy="61" r="3" fill="#fbbf24"/>
+            <g class="av-tassel">
+              <path d="M88 46v12" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="88" cy="61" r="3" fill="#fbbf24"/>
+            </g>
           </svg>
           <h3>Students</h3>
           <p>Exam season and a TikTok habit don't mix. Feeds blocked during study hours, the group chat untouched.</p>
@@ -327,14 +337,16 @@
           <svg class="avatar" viewBox="0 0 120 120" aria-hidden="true">
             <circle cx="60" cy="60" r="56" fill="#e7f6f3"/>
             <path d="M28 108a32 28 0 0 1 64 0z" fill="#0ea5a0"/>
-            <circle cx="60" cy="56" r="22" fill="#e8b48c"/>
-            <path d="M38 52a22 22 0 0 1 44 0c-7-7-15-9-22-9s-15 2-22 9z" fill="#4a3628"/>
-            <circle class="av-eye" cx="52" cy="58" r="2.7" fill="#20234a"/>
-            <circle class="av-eye" cx="68" cy="58" r="2.7" fill="#20234a"/>
-            <circle cx="52" cy="58" r="6.5" fill="none" stroke="#20234a" stroke-width="1.8"/>
-            <circle cx="68" cy="58" r="6.5" fill="none" stroke="#20234a" stroke-width="1.8"/>
-            <path d="M58.5 58h3" stroke="#20234a" stroke-width="1.8"/>
-            <path d="M54 68q6 4 12 0" stroke="#20234a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <g class="av-head">
+              <circle cx="60" cy="56" r="22" fill="#e8b48c"/>
+              <path d="M38 52a22 22 0 0 1 44 0c-7-7-15-9-22-9s-15 2-22 9z" fill="#4a3628"/>
+              <circle class="av-eye" cx="52" cy="58" r="2.7" fill="#20234a"/>
+              <circle class="av-eye" cx="68" cy="58" r="2.7" fill="#20234a"/>
+              <circle cx="52" cy="58" r="6.5" fill="none" stroke="#20234a" stroke-width="1.8"/>
+              <circle cx="68" cy="58" r="6.5" fill="none" stroke="#20234a" stroke-width="1.8"/>
+              <path d="M58.5 58h3" stroke="#20234a" stroke-width="1.8"/>
+              <path d="M54 68q6 4 12 0" stroke="#20234a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            </g>
             <rect x="40" y="94" width="40" height="12" rx="3" fill="#374061"/>
           </svg>
           <h3>Deep workers</h3>
@@ -352,7 +364,7 @@
               <path d="M84 88L96 62" stroke="#f59e0b" stroke-width="9" stroke-linecap="round"/>
               <circle cx="97" cy="59" r="6" fill="#d99e6a"/>
             </g>
-            <g class="av-zz">
+            <g class="av-phone">
               <rect x="92" y="22" width="11" height="18" rx="3" fill="#374061" transform="rotate(18 97 31)"/>
               <path d="M84 24l-5-3M86 34l-6 1" stroke="#9094b4" stroke-width="2" stroke-linecap="round"/>
             </g>
@@ -370,7 +382,7 @@
             <circle class="av-eye" cx="65" cy="57" r="2.7" fill="#20234a"/>
             <path d="M51 67q6 3 12 0" stroke="#20234a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
             <path d="M92 96V40" stroke="#374061" stroke-width="3" stroke-linecap="round"/>
-            <path d="M92 40h-22l6 8-6 8h22z" fill="#2dd4bf"/>
+            <g class="av-flag"><path d="M92 40h-22l6 8-6 8h22z" fill="#2dd4bf"/></g>
           </svg>
           <h3>People who've tried blockers</h3>
           <p>You turned the last one off in a weak moment. North makes that moment slow, present and honest. This time it holds.</p>
