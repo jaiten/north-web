@@ -1,0 +1,26 @@
+# North
+
+> North is a free Chrome extension that blocks distracting websites and short-form video (YouTube Shorts, Instagram Reels, Facebook Reels, Snapchat Spotlight, TikTok), with schedules, daily time limits, keyword blocking, 18+ blocking, and a companion character named Nori that reacts to the user's behavior. Everything runs locally in the browser: no accounts, no tracking, no servers.
+
+## What makes North different
+
+- Short-form video is blocked as a category and can never be unlocked. The single exception: a reel, short or post a friend sends (opened from a DM, another app or a pasted link) plays for 5 minutes, locked to that exact item, at most one new pass every 10 minutes. Swiping to the next item stays blocked.
+- Instagram messages-only mode: DMs work fully while the feed, Explore, Reels and profiles are blocked.
+- Weakening any protection requires staying present through a breathing timer (switching tabs or apps restarts it), then typing an honest reflection sentence word for word, with pasting disabled.
+- YouTube topic mode: feeds and search only show videos matching user-chosen topics (e.g. guitar, coding, math). Home feed, related videos, comments and subscriptions can each be hidden.
+- Per-site schedules (day and time windows) and daily minute budgets. Videos interrupted by a budget block resume at the same playback position afterward.
+- Focus sessions block everything on the list with no unlock path until the session ends.
+- A buddy named Nori narrates blocks, counts dodged distractions, warns when budgets run low, and comes in a gentle or direct tone.
+
+## Pricing
+
+Free. No account, no credit card, no catch.
+
+## Privacy
+
+All data (settings, usage stats) is stored locally in the browser. No accounts, no analytics, no network calls.
+
+## Links
+
+- Website: https://northfocus.app/
+- Feature requests: jaitenkangis@gmail.com

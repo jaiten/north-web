@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>North: Block Shorts, Reels and Distracting Sites | Free Chrome Extension</title>
+  <meta name="description" content="North is a free Chrome extension that blocks YouTube Shorts, Instagram Reels, TikTok and the sites that eat your day. Schedules, time limits, keyword blocking and a buddy that keeps you honest. No account, no tracking.">
+  <link rel="canonical" href="https://northfocus.app/">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+
+  <link rel="preconnect" href="https://fonts.bunny.net">
+  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=plus-jakarta-sans:400,600,700,800&display=swap">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://northfocus.app/">
+  <meta property="og:title" content="North: the focus companion that blocks Shorts, Reels and distracting sites">
+  <meta property="og:description" content="Free Chrome extension. Block short videos everywhere, keep Instagram DMs, set schedules and time limits. A buddy named Nori keeps you honest.">
+  <meta property="og:image" content="https://northfocus.app/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="North: block Shorts, Reels and distracting sites">
+  <meta name="twitter:description" content="The free focus companion for Chrome. Short videos blocked, DMs kept, honesty required.">
+  <meta name="twitter:image" content="https://northfocus.app/assets/og-image.png">
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "North",
+    "operatingSystem": "Chrome",
+    "applicationCategory": "BrowserApplication",
+    "description": "A free Chrome extension that blocks YouTube Shorts, Instagram Reels, TikTok and distracting websites. Includes schedules, daily time limits, keyword and 18+ blocking, a messages-only mode for Instagram, and a companion that reacts to what you do.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "url": "https://northfocus.app/"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is North free?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free. No account, no credit card, no catch." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does North block YouTube Shorts and Instagram Reels?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Short videos are blocked as a category: YouTube Shorts, Instagram Reels, Facebook Reels, Snapchat Spotlight, and optionally all of TikTok. They are hidden in feeds and unreachable by URL, and these blocks can never be unlocked." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I still watch a reel a friend sends me?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. A reel, short or post opened from a DM, another app or a pasted link plays for 5 minutes. Just that one item. Swiping to the next is blocked, and only one new pass is granted every 10 minutes." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I keep using Instagram messages?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. North has a messages-only mode for Instagram. Your DMs work fully while the feed, Explore, Reels and profiles stay blocked." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my data private?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Everything stays on your device. North has no accounts, no tracking and no servers. Your settings and stats never leave your browser." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can't I just turn it off when I'm tempted?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Not quickly. Weakening any protection requires staying with a breathing timer, then typing an honest sentence like 'I am choosing distraction over my own goals right now'. Leaving the tab restarts the timer. Most urges don't survive the wait." }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <a class="nav-logo" href="#top">
+      <img src="assets/icon128.png" alt="North logo" width="36" height="36">
+      <span>North</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#demo">Try it</a>
+      <a href="#who">Who it's for</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn primary" href="#install">Add to Chrome</a>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ Hero ============ -->
+    <section class="hero">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Free Chrome extension</p>
+        <h1>Your attention has a direction.<br><span class="grad-text">Find your true north.</span></h1>
+        <p class="lede">North blocks Shorts, Reels, TikTok and the sites that eat your day. It keeps the parts you actually need, like your DMs, and pairs every block with a buddy who keeps you honest.</p>
+        <div class="hero-cta">
+          <a class="btn primary big" href="#install">Add to Chrome, it's free</a>
+          <p class="cta-note">No account. No tracking. Everything stays on your device.</p>
+        </div>
+      </div>
+
+      <!-- Live product mockup -->
+      <div class="hero-mock reveal delay-1" id="hero-mock" aria-label="Preview of the North block page">
+        <div class="float-chip fc1"><span class="dot"></span>Reels blocked</div>
+        <div class="float-chip fc2"><span class="dot"></span>38 focused minutes today</div>
+        <div class="mock-card">
+          <div class="orb mock-orb"><div class="eyes"><span class="eye"></span><span class="eye"></span></div></div>
+          <p class="mock-buddy">NORI</p>
+          <h3 class="mock-headline">This isn't the way.</h3>
+          <p class="mock-sub" id="mock-line">Habit brought you here, not intention. Let's point that energy somewhere real.</p>
+          <div class="mock-pills">
+            <span class="mock-pill"><strong>x.com</strong></span>
+            <span class="mock-pill"><strong>7</strong> visits stopped today</span>
+          </div>
+          <div class="mock-btn primary">Take me somewhere better</div>
+          <div class="mock-btn ghost">I genuinely need this site</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ The problem ============ -->
+    <section class="strip reveal" data-nori="Fifteen seconds at a time. I've watched it happen.">
+      <p>Hours vanish fifteen seconds at a time. Not because you're weak, but because thousands of engineers are paid to make sure they do. North is the counterweight: a few seconds of friction, right where the habit lives.</p>
+    </section>
+
+    <!-- ============ Features ============ -->
+    <section class="section" id="features" data-nori="This is the part where I show off a little.">
+      <h2 class="reveal">Everything the paid blockers do.<br>And the things they don't.</h2>
+
+      <!-- Showcase 1: shorts gone -->
+      <div class="show reveal">
+        <div class="show-viz">
+          <div class="viz viz-shorts">
+            <div class="phone">
+              <div class="ph-feed">
+                <div class="ph-card c1"><span class="ph-play"></span></div>
+                <div class="ph-card c2"><span class="ph-play"></span></div>
+                <div class="ph-card c3"><span class="ph-play"></span></div>
+                <div class="ph-card c4"><span class="ph-play"></span></div>
+                <div class="ph-card c5"><span class="ph-play"></span></div>
+                <div class="ph-card c6"><span class="ph-play"></span></div>
+              </div>
+              <div class="ph-block">
+                <div class="orb"><div class="eyes"><span class="eye"></span><span class="eye"></span></div></div>
+                <strong>Shorts blocked</strong>
+                <span>No unlock. That's the point.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="show-copy">
+          <p class="eyebrow">The big one</p>
+          <h3>Short videos, gone.</h3>
+          <p>Shorts, Reels, TikTok, Spotlight. Hidden from every feed, unreachable by URL, and never unlockable. The endless feed finally ends.</p>
+        </div>
+      </div>
+
+      <!-- Showcase 2: friend's reel -->
+      <div class="show flip reveal">
+        <div class="show-viz">
+          <div class="viz viz-share">
+            <div class="chat">
+              <div class="msg m1">dude.</div>
+              <div class="msg m2">you NEED to see this one</div>
+              <div class="msg m3 link">&#9654; instagram.com/reel/x7&hellip;</div>
+              <div class="reelcard m4">
+                <div class="reel-thumb"><span class="ph-play"></span></div>
+                <div class="reel-meta">
+                  <strong>Playing — just this one</strong>
+                  <span class="reel-timer"><i></i></span>
+                  <em>5-minute pass &middot; swiping to the next is blocked</em>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="show-copy">
+          <p class="eyebrow">Stay human</p>
+          <h3>The one your friend sent still plays.</h3>
+          <p>A reel opened from a DM or a pasted link gets five minutes. Just that one. The feed behind it stays sealed. No other blocker does this.</p>
+        </div>
+      </div>
+
+      <!-- Showcase 3: Instagram messages only -->
+      <div class="show reveal">
+        <div class="show-viz">
+          <div class="viz viz-ig">
+            <div class="ig">
+              <div class="ig-dms">
+                <div class="ig-row"><span class="ig-av a1"></span><span class="ig-lines"><i></i><i></i></span><span class="ig-dot"></span></div>
+                <div class="ig-row"><span class="ig-av a2"></span><span class="ig-lines"><i></i><i></i></span><span class="ig-dot"></span></div>
+                <div class="ig-row"><span class="ig-av a3"></span><span class="ig-lines"><i></i><i></i></span></div>
+                <span class="ig-tag ok">DMs open</span>
+              </div>
+              <div class="ig-feed">
+                <div class="ig-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                <div class="ig-lock">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                  Feed blocked
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="show-copy">
+          <p class="eyebrow">Keep your people</p>
+          <h3>Instagram, messages only.</h3>
+          <p>Your DMs work like nothing happened. The feed, Explore and Reels simply stop existing, and instagram.com goes straight to your inbox.</p>
+        </div>
+      </div>
+
+      <!-- Showcase 4: YouTube topic mode -->
+      <div class="show flip reveal">
+        <div class="show-viz">
+          <div class="viz viz-yt">
+            <div class="yt">
+              <div class="yt-search"><span class="yt-type">guitar</span><i class="yt-caret"></i></div>
+              <div class="yt-grid">
+                <div class="yt-tile keep"><div class="yt-thumb t1"></div>Fingerstyle basics</div>
+                <div class="yt-tile cut"><div class="yt-thumb t2"></div>DRAMA, explained</div>
+                <div class="yt-tile keep"><div class="yt-thumb t3"></div>Barre chords in 10 minutes</div>
+                <div class="yt-tile cut"><div class="yt-thumb t4"></div>I bought 100 mystery boxes</div>
+                <div class="yt-tile keep"><div class="yt-thumb t5"></div>A practice routine that works</div>
+                <div class="yt-tile cut"><div class="yt-thumb t6"></div>Reacting to reaction videos</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="show-copy">
+          <p class="eyebrow">YouTube, on your terms</p>
+          <h3>Only what you came for.</h3>
+          <p>Pick your topics — guitar, coding, calculus — and everything else quietly disappears from feeds and search. The home page, related videos and comments can go too.</p>
+        </div>
+      </div>
+
+      <!-- Compact extras -->
+      <div class="more-grid reveal">
+        <div class="more">
+          <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
+          <div><h3>Schedules &amp; budgets</h3><p>Block 9 to 5, or allow 20 minutes a day. Midnight resets the clock.</p></div>
+        </div>
+        <div class="more">
+          <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l8.5-8.5a2 2 0 0 1 1.4-.6H19a2 2 0 0 1 2 2v6.1a2 2 0 0 1-.6 1.4L12 21z"/><circle cx="16" cy="8" r="1.6"/></svg></span>
+          <div><h3>Keyword blocking</h3><p>Stop pages by what they're about, on every site at once.</p></div>
+        </div>
+        <div class="more">
+          <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 7.8-8 9-4.6-1.2-8-4.5-8-9V6z"/></svg></span>
+          <div><h3>18+, always blocked</h3><p>Built in, on for everyone, and there is no unlock path. Ever.</p></div>
+        </div>
+        <div class="more">
+          <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M6 3h12M6 21h12M8 3c0 7 8 7 8 11s-8 4-8 7M16 3c0 7-8 7-8 11s8 4 8 7"/></svg></span>
+          <div><h3>The honest unlock</h3><p>A breathing timer, then a true sentence typed word for word.</p></div>
+        </div>
+        <div class="more">
+          <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg></span>
+          <div><h3>Progress, counted</h3><p>Every dodged distraction and focused minute, shown honestly.</p></div>
+        </div>
+        <div class="more">
+          <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4-2-7-4-7-9V5l7-2 7 2v7c0 5-3 7-7 9z"/><path d="M9 11.5l2 2 4-4"/></svg></span>
+          <div><h3>Completely private</h3><p>No account, no servers, no tracking. It all stays in your browser.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Interactive demo ============ -->
+    <section class="section demo" id="demo" data-nori="Go on, type it. I'll wait.">
+      <h2 class="reveal">Try the honest moment.</h2>
+      <p class="section-sub reveal">This is what it takes to unlock a blocked site in North. Type it exactly.</p>
+      <div class="demo-box reveal delay-1">
+        <p class="demo-phrase" id="demo-phrase">I am choosing distraction over my own goals right now</p>
+        <input type="text" id="demo-input" placeholder="Type it, then press Enter" autocomplete="off" spellcheck="false">
+        <p class="demo-result hidden" id="demo-result"></p>
+      </div>
+    </section>
+
+    <!-- ============ How it works ============ -->
+    <section class="section" id="how" data-nori="Three minutes of setup. I counted.">
+      <h2 class="reveal">Three minutes to set up. Months of hours back.</h2>
+      <div class="steps">
+        <div class="step reveal">
+          <span class="step-num">1</span>
+          <h3>Install North</h3>
+          <p>Add it to Chrome. The settings page opens and nothing is blocked until you choose it.</p>
+        </div>
+        <div class="step reveal delay-1">
+          <span class="step-num">2</span>
+          <h3>Pick your protections</h3>
+          <p>Block short videos, choose your sites, set schedules and budgets, add the keywords you can't unsee.</p>
+        </div>
+        <div class="step reveal delay-2">
+          <span class="step-num">3</span>
+          <h3>Nori holds the line</h3>
+          <p>Every blocked visit is a small win, counted and shown. Changing your mind takes a wait and an honest sentence.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Who it's for ============ -->
+    <section class="section" id="who" data-nori="Sound like anyone you know?">
+      <h2 class="reveal">Built for the moment your thumb moves on its own.</h2>
+      <div class="who-grid">
+        <article class="who-card reveal">
+          <svg class="avatar" viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="56" fill="#eef0fb"/>
+            <path d="M28 108a32 28 0 0 1 64 0z" fill="#6366f1"/>
+            <circle cx="60" cy="58" r="22" fill="#f5c89e"/>
+            <circle class="av-eye" cx="52" cy="57" r="2.7" fill="#20234a"/>
+            <circle class="av-eye" cx="68" cy="57" r="2.7" fill="#20234a"/>
+            <path d="M53 66q7 5 14 0" stroke="#20234a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <path d="M32 46L60 33l28 13-28 11z" fill="#20234a"/>
+            <path d="M88 46v12" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="88" cy="61" r="3" fill="#fbbf24"/>
+          </svg>
+          <h3>Students</h3>
+          <p>Exam season and a TikTok habit don't mix. Feeds blocked during study hours, the group chat untouched.</p>
+        </article>
+        <article class="who-card reveal delay-1">
+          <svg class="avatar" viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="56" fill="#e7f6f3"/>
+            <path d="M28 108a32 28 0 0 1 64 0z" fill="#0ea5a0"/>
+            <circle cx="60" cy="56" r="22" fill="#e8b48c"/>
+            <path d="M38 52a22 22 0 0 1 44 0c-7-7-15-9-22-9s-15 2-22 9z" fill="#4a3628"/>
+            <circle class="av-eye" cx="52" cy="58" r="2.7" fill="#20234a"/>
+            <circle class="av-eye" cx="68" cy="58" r="2.7" fill="#20234a"/>
+            <circle cx="52" cy="58" r="6.5" fill="none" stroke="#20234a" stroke-width="1.8"/>
+            <circle cx="68" cy="58" r="6.5" fill="none" stroke="#20234a" stroke-width="1.8"/>
+            <path d="M58.5 58h3" stroke="#20234a" stroke-width="1.8"/>
+            <path d="M54 68q6 4 12 0" stroke="#20234a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <rect x="40" y="94" width="40" height="12" rx="3" fill="#374061"/>
+          </svg>
+          <h3>Deep workers</h3>
+          <p>One focus session seals everything until it ends. The "quick check" that costs 40 minutes stops happening.</p>
+        </article>
+        <article class="who-card reveal delay-2">
+          <svg class="avatar" viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="56" fill="#fdf3ea"/>
+            <path d="M26 108a32 28 0 0 1 64 0z" fill="#f59e0b"/>
+            <circle cx="58" cy="58" r="22" fill="#d99e6a"/>
+            <circle class="av-eye" cx="50" cy="57" r="2.7" fill="#20234a"/>
+            <circle class="av-eye" cx="66" cy="57" r="2.7" fill="#20234a"/>
+            <path d="M51 66q7 6 14 0" stroke="#20234a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <g class="av-arm">
+              <path d="M84 88L96 62" stroke="#f59e0b" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="97" cy="59" r="6" fill="#d99e6a"/>
+            </g>
+            <g class="av-zz">
+              <rect x="92" y="22" width="11" height="18" rx="3" fill="#374061" transform="rotate(18 97 31)"/>
+              <path d="M84 24l-5-3M86 34l-6 1" stroke="#9094b4" stroke-width="2" stroke-linecap="round"/>
+            </g>
+          </svg>
+          <h3>Anyone quitting short videos</h3>
+          <p>Reels and Shorts never end, so North ends them. The one a friend sends still plays. Wave the rest goodbye.</p>
+        </article>
+        <article class="who-card reveal">
+          <svg class="avatar" viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="56" fill="#f3edfb"/>
+            <path d="M24 108a32 28 0 0 1 64 0z" fill="#8b5cf6"/>
+            <circle cx="56" cy="58" r="22" fill="#f5c89e"/>
+            <path d="M44 50q5-4 9-2M67 48q5-2 9 2" stroke="#20234a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <circle class="av-eye" cx="49" cy="57" r="2.7" fill="#20234a"/>
+            <circle class="av-eye" cx="65" cy="57" r="2.7" fill="#20234a"/>
+            <path d="M51 67q6 3 12 0" stroke="#20234a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <path d="M92 96V40" stroke="#374061" stroke-width="3" stroke-linecap="round"/>
+            <path d="M92 40h-22l6 8-6 8h22z" fill="#2dd4bf"/>
+          </svg>
+          <h3>People who've tried blockers</h3>
+          <p>You turned the last one off in a weak moment. North makes that moment slow, present and honest. This time it holds.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ Privacy ============ -->
+    <section class="strip reveal" data-nori="What happens in your browser stays in your browser.">
+      <p><strong>The honest fine print:</strong> North has no accounts, no servers and no tracking. Your settings and stats live in your browser and nowhere else. And yes, you can always uninstall it. North's job is to interrupt habit, not to imprison you.</p>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section" id="faq" data-nori="Straight answers. It's kind of my thing.">
+      <h2 class="reveal">Questions, answered straight.</h2>
+      <div class="faq-list">
+        <details class="reveal">
+          <summary>Is North free?</summary>
+          <div class="faq-body"><p>Yes, completely free. No account, no credit card, no catch.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>Does it block YouTube Shorts and Instagram Reels?</summary>
+          <div class="faq-body"><p>Yes, as a category. Hidden in feeds, unreachable by URL, never unlockable. TikTok can be blocked entirely with one switch.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>Can I still watch the reel my friend sent me?</summary>
+          <div class="faq-body"><p>Yes. Opened from a DM, another app or a pasted link, that single item plays for 5 minutes. Swiping to the next one is blocked, and you get at most one new pass every 10 minutes.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>What stops me from just turning it off?</summary>
+          <div class="faq-body"><p>A breathing timer you have to stay present for. Switch tabs or apps and it restarts. Then you type a sentence like "I am choosing distraction over my own goals right now", word for word, no pasting. If the sentence doesn't feel true, you'll close the tab instead. That's the design.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>Is my data private?</summary>
+          <div class="faq-body"><p>Completely. No account, no analytics, no network calls. Everything North knows lives in your browser's local storage.</p></div>
+        </details>
+        <details class="reveal">
+          <summary>What about Incognito?</summary>
+          <div class="faq-body"><p>Chrome requires you to allow extensions in Incognito manually. North reminds you until you do, because distractions love a side door.</p></div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ============ Final CTA ============ -->
+    <section class="section cta-final" id="install" data-nori="Room for one more icon up there?">
+      <div class="reveal">
+        <img src="assets/icon128.png" alt="" width="72" height="72" class="cta-icon">
+        <h2>The feed will survive without you.</h2>
+        <p class="section-sub">Your goals might not survive the feed. Install North and find out what a day with fewer detours feels like.</p>
+        <a class="btn primary big" href="https://chrome.google.com/webstore" rel="noopener">Add to Chrome, it's free</a>
+        <p class="cta-note">Available for Chrome and Chromium browsers. Edge, Brave and Arc work too.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="nav-logo">
+        <img src="assets/icon128.png" alt="" width="28" height="28">
+        <span>North</span>
+      </div>
+      <p>Find your true north.</p>
+      <p><a href="mailto:jaitenkangis@gmail.com">Request a feature</a> · <a href="goodbye.html">What happens if I uninstall?</a></p>
+      <p class="fine">No accounts. No tracking. Your data never leaves your browser.</p>
+    </div>
+  </footer>
+
+  <!-- Nori, the scroll companion -->
+  <div class="nori" id="nori" aria-hidden="true">
+    <div class="nori-bubble" id="nori-bubble">Hi, I'm Nori.</div>
+    <div class="orb nori-orb" id="nori-orb"><div class="eyes"><span class="eye"></span><span class="eye"></span></div></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
