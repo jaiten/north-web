@@ -58,6 +58,13 @@ h1, h2, h3 { letter-spacing: -0.02em; line-height: 1.12; margin: 0; }
 a { color: var(--accent-deep); }
 .hidden { display: none; }
 
+::selection { background: rgba(99, 102, 241, 0.22); }
+a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible {
+  outline: 2.5px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 /* Daylight backdrop: morning sun, clear sky */
 .aurora {
   position: fixed; inset: -20%;
@@ -234,7 +241,16 @@ a { color: var(--accent-deep); }
 .theme-btn svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 :root[data-theme="dark"] .theme-btn .ico-moon { display: none; }
 :root:not([data-theme="dark"]) .theme-btn .ico-sun { display: none; }
-.nav-right { display: flex; align-items: center; gap: 12px; }
+.nav-right { display: flex; align-items: center; gap: 14px; }
+.donate-link {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.donate-link:hover { color: var(--accent-deep); }
+@media (max-width: 480px) { .donate-link { display: none; } }
 .nav-logo {
   display: flex; align-items: center; gap: 10px;
   font-weight: 800; font-size: 18px;
@@ -350,7 +366,7 @@ main { position: relative; z-index: 1; }
 }
 .float-chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); }
 .float-chip.fc1 { top: 4%; left: -4%; animation-delay: 0.6s; }
-.float-chip.fc2 { bottom: 8%; right: -5%; }
+.float-chip.fc2 { bottom: -6%; right: -4%; }
 .float-chip.fc2 .dot { background: var(--accent); }
 @media (max-width: 880px) { .float-chip { display: none; } }
 
@@ -399,6 +415,56 @@ main { position: relative; z-index: 1; }
   align-items: center;
   margin-top: clamp(48px, 8vh, 84px);
 }
+
+/* Pinned showcase stack: the viewport holds still while features take turns */
+.stack { position: relative; height: 420vh; }
+.stack-pin {
+  position: sticky;
+  top: 70px;
+  height: calc(100vh - 90px);
+  min-height: 540px;
+  display: flex;
+  align-items: center;
+}
+.stack-frame {
+  position: absolute;
+  left: 0; right: 0;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(46px) scale(0.985);
+  transition: opacity 0.45s ease, transform 0.55s cubic-bezier(0.2, 0.7, 0.3, 1);
+  pointer-events: none;
+}
+.stack-frame.active { opacity: 1; transform: none; pointer-events: auto; }
+.stack-frame.passed { transform: translateY(-46px) scale(0.985); }
+.stack-dots {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+.stack-dots i {
+  width: 8px; height: 8px;
+  border-radius: 99px;
+  background: rgba(99, 102, 241, 0.25);
+  transition: all 0.35s ease;
+}
+.stack-dots i.on { background: var(--accent); width: 26px; }
+/* Small screens and reduced motion: a normal scrolling list, no pinning */
+@media (max-width: 820px), (prefers-reduced-motion: reduce) {
+  .stack { height: auto; }
+  .stack-pin { position: static; height: auto; min-height: 0; display: block; }
+  .stack-frame {
+    position: static;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    margin-top: clamp(48px, 8vh, 84px);
+  }
+  .stack-dots { display: none; }
+}
 .show.flip .show-viz { order: 2; }
 @media (max-width: 820px) {
   .show { grid-template-columns: 1fr; }
@@ -424,11 +490,13 @@ main { position: relative; z-index: 1; }
   width: 200px; height: 320px;
   border-radius: 28px;
   border: 6px solid #2a2d55;
-  background: #f3f4fc;
+  /* Same color as the border: the sliver where the two radii meet renders
+     solid instead of as a translucent corner artifact. */
+  background: #2a2d55;
   position: relative;
   overflow: hidden;
 }
-.ph-feed { position: absolute; inset: 0; animation: ph-scroll 9s linear infinite; }
+.ph-feed { position: absolute; inset: 0; background: #f3f4fc; animation: ph-scroll 9s linear infinite; }
 @keyframes ph-scroll {
   from { transform: translateY(0); }
   to   { transform: translateY(-50%); }
@@ -693,6 +761,16 @@ main { position: relative; z-index: 1; }
   padding: 30px;
   text-align: center;
 }
+.demo-label {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  text-align: left;
+  margin: 0 0 8px;
+}
+.demo-label-you { margin-top: 20px; color: var(--teal); }
 .demo-phrase {
   font-size: 16px;
   font-weight: 700;
@@ -701,23 +779,24 @@ main { position: relative; z-index: 1; }
   border: 1.5px dashed rgba(99, 102, 241, 0.4);
   border-radius: 12px;
   padding: 14px 18px;
-  margin: 0 0 14px;
+  margin: 0;
   user-select: none;
   -webkit-user-select: none;
 }
 .demo-box input {
   width: 100%;
   font: 600 15px var(--font);
-  background: var(--bg-inset);
+  background: var(--bg-card);
   color: var(--text);
-  border: 1.5px solid var(--line);
+  border: 2px solid rgba(99, 102, 241, 0.45);
   border-radius: 12px;
   padding: 13px 16px;
   outline: none;
   text-align: center;
-  transition: border-color 0.2s;
+  caret-color: var(--accent);
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
-.demo-box input:focus { border-color: var(--accent); background: var(--bg-card); }
+.demo-box input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12); }
 .demo-box input::placeholder { color: var(--text-faint); }
 .demo-result { font-size: 14.5px; color: var(--teal); margin: 14px 0 0; font-weight: 700; }
 
@@ -864,6 +943,30 @@ summary::after {
 details[open] summary::after { transform: rotate(45deg); }
 .faq-body { overflow: hidden; }
 .faq-body p { color: var(--text-dim); font-size: 14.5px; margin: 0; padding-bottom: 18px; }
+
+/* ====================== From the maker ====================== */
+
+.maker-card {
+  display: flex;
+  gap: clamp(24px, 4vw, 44px);
+  align-items: flex-start;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: clamp(28px, 5vw, 48px);
+  max-width: 860px;
+  margin: 0 auto;
+}
+.maker-orb { width: 74px; height: 74px; flex: none; }
+.maker-copy h2 { text-align: left; font-size: clamp(23px, 3vw, 31px); margin-bottom: 14px; }
+.maker-copy p { color: var(--text-dim); margin: 0 0 14px; max-width: 62ch; }
+.maker-copy .btn { margin-top: 6px; }
+.maker-copy .cta-note { margin-top: 12px; }
+@media (max-width: 640px) {
+  .maker-card { flex-direction: column; align-items: center; text-align: center; }
+  .maker-copy h2 { text-align: center; }
+}
 
 /* ====================== Final CTA ====================== */
 

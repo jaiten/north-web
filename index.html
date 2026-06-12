@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>North: Block Shorts, Reels and Distracting Sites | Free Chrome Extension</title>
-  <meta name="description" content="North is a free Chrome extension that blocks YouTube Shorts, Instagram Reels, TikTok and the sites that eat your day. Schedules, time limits, keyword blocking and a buddy that keeps you honest. No account, no tracking.">
+  <meta name="description" content="North is a free Chrome extension that blocks YouTube Shorts, Instagram Reels, TikTok and the sites that eat your day. Messages-only modes, lockdown for exam week, schedules, time limits, keyword blocking and a buddy that keeps you honest. No account, no tracking.">
   <link rel="canonical" href="https://northfocus.app/">
   <link rel="icon" type="image/png" href="assets/favicon.png">
 
@@ -31,7 +31,7 @@
     "name": "North",
     "operatingSystem": "Chrome",
     "applicationCategory": "BrowserApplication",
-    "description": "A free Chrome extension that blocks YouTube Shorts, Instagram Reels, TikTok and distracting websites. Includes schedules, daily time limits, keyword and 18+ blocking, a messages-only mode for Instagram, and a companion that reacts to what you do.",
+    "description": "A free Chrome extension that blocks YouTube Shorts, Instagram Reels, TikTok and distracting websites. Includes schedules, daily time limits, keyword and 18+ blocking, messages-only modes for Instagram, LinkedIn, Facebook and X, an allowlist-only lockdown mode, an unlock journal, and a companion that reacts to what you do.",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "url": "https://northfocus.app/"
   }
@@ -70,6 +70,11 @@
         "@type": "Question",
         "name": "Can't I just turn it off when I'm tempted?",
         "acceptedAnswer": { "@type": "Answer", "text": "Not quickly. Weakening any protection requires staying with a breathing timer, then typing an honest sentence like 'I am choosing distraction over my own goals right now'. Leaving the tab restarts the timer. Most urges don't survive the wait." }
+      },
+      {
+        "@type": "Question",
+        "name": "What's Lockdown mode?",
+        "acceptedAnswer": { "@type": "Answer", "text": "An allowlist-only mode for crunch time. Pick the few sites you need, set a duration up to 24 hours, and everything else stops loading. There is no off switch — it ends when the clock ends." }
       }
     ]
   }
@@ -94,6 +99,7 @@
       <a href="#faq">FAQ</a>
     </nav>
     <div class="nav-right">
+      <a class="donate-link" href="https://ko-fi.com/jaiten" target="_blank" rel="noopener">♥ Donate</a>
       <button class="theme-btn" id="btn-theme" aria-label="Switch between light and dark theme">
         <svg class="ico-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         <svg class="ico-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5 5l1.8 1.8M17.2 17.2L19 19M19 5l-1.8 1.8M6.8 17.2L5 19"/></svg>
@@ -143,9 +149,14 @@
     <!-- ============ Features ============ -->
     <section class="section" id="features" data-nori="This is the part where I show off a little.">
       <h2 class="reveal">Everything the paid blockers do.<br>And the things they don't.</h2>
+      <p class="section-sub reveal">Keep scrolling — each one plays as it arrives.</p>
+
+      <!-- Pinned showcase stack: the section holds still while the features take turns -->
+      <div class="stack" id="feature-stack">
+        <div class="stack-pin">
 
       <!-- Showcase 1: shorts gone -->
-      <div class="show reveal">
+      <div class="stack-frame show">
         <div class="show-viz">
           <div class="viz viz-shorts">
             <div class="phone">
@@ -173,7 +184,7 @@
       </div>
 
       <!-- Showcase 2: friend's reel -->
-      <div class="show flip reveal">
+      <div class="stack-frame show flip">
         <div class="show-viz">
           <div class="viz viz-share">
             <div class="chat">
@@ -198,8 +209,8 @@
         </div>
       </div>
 
-      <!-- Showcase 3: Instagram messages only -->
-      <div class="show reveal">
+      <!-- Showcase 3: messages only -->
+      <div class="stack-frame show">
         <div class="show-viz">
           <div class="viz viz-ig">
             <div class="ig">
@@ -221,13 +232,13 @@
         </div>
         <div class="show-copy">
           <p class="eyebrow">Keep your people</p>
-          <h3>Instagram, messages only.</h3>
-          <p>Your DMs work like nothing happened. The feed, Explore and Reels simply stop existing, and instagram.com goes straight to your inbox.</p>
+          <h3>Messages only. On every network.</h3>
+          <p>Instagram, LinkedIn, Facebook, X — your DMs work like nothing happened, while the feeds, Explore and trending simply stop existing. Each site opens straight to your inbox.</p>
         </div>
       </div>
 
       <!-- Showcase 4: YouTube topic mode -->
-      <div class="show flip reveal">
+      <div class="stack-frame show flip">
         <div class="show-viz">
           <div class="viz viz-yt">
             <div class="yt">
@@ -250,6 +261,10 @@
         </div>
       </div>
 
+          <div class="stack-dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+
       <!-- Compact extras -->
       <div class="more-grid reveal">
         <div class="more">
@@ -269,6 +284,14 @@
           <div><h3>The honest unlock</h3><p>A breathing timer, then a true sentence typed word for word.</p></div>
         </div>
         <div class="more">
+          <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v3"/></svg></span>
+          <div><h3>Lockdown mode</h3><p>Exam week: your allowlist or nothing, for hours you can't undo.</p></div>
+        </div>
+        <div class="more">
+          <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 4v13a3 3 0 0 0 3 3"/><path d="M10 9h6M10 13h4"/></svg></span>
+          <div><h3>The unlock journal</h3><p>Every unlock needs a reason in your own words. Reading them back stings — that's the point.</p></div>
+        </div>
+        <div class="more">
           <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg></span>
           <div><h3>Progress, counted</h3><p>Every dodged distraction and focused minute, shown honestly.</p></div>
         </div>
@@ -284,8 +307,10 @@
       <h2 class="reveal">Try the honest moment.</h2>
       <p class="section-sub reveal">This is what it takes to unlock a blocked site in North. Type it exactly.</p>
       <div class="demo-box reveal delay-1">
+        <p class="demo-label">Nori asks you to type this sentence:</p>
         <p class="demo-phrase" id="demo-phrase">I am choosing distraction over my own goals right now</p>
-        <input type="text" id="demo-input" placeholder="Type it, then press Enter" autocomplete="off" spellcheck="false">
+        <p class="demo-label demo-label-you">Your turn — type it in the box below</p>
+        <input type="text" id="demo-input" placeholder="Start typing here, then press Enter" autocomplete="off" spellcheck="false">
         <p class="demo-result hidden" id="demo-result"></p>
       </div>
     </section>
@@ -420,9 +445,27 @@
           <div class="faq-body"><p>Completely. No account, no analytics, no network calls. Everything North knows lives in your browser's local storage.</p></div>
         </details>
         <details class="reveal">
+          <summary>What's Lockdown mode?</summary>
+          <div class="faq-body"><p>Exam-week mode. You pick a short allowlist — your docs, your school portal — set a duration up to 24 hours, and everything else on the internet stops loading. There is deliberately no off switch: not the challenge, not a setting, nothing. It ends when the clock ends.</p></div>
+        </details>
+        <details class="reveal">
           <summary>What about Incognito?</summary>
           <div class="faq-body"><p>Chrome requires you to allow extensions in Incognito manually. North reminds you until you do, because distractions love a side door.</p></div>
         </details>
+      </div>
+    </section>
+
+    <!-- ============ From the maker ============ -->
+    <section class="section" id="maker" data-nori="That's my human. Be nice to him.">
+      <div class="maker-card reveal">
+        <div class="orb maker-orb"><div class="eyes"><span class="eye"></span><span class="eye"></span></div></div>
+        <div class="maker-copy">
+          <h2>Made by one person. Kept free on purpose.</h2>
+          <p>Hi — I'm Jaiten. I built North because my own attention kept losing fights it never agreed to. There's no company behind this: no ads, no subscription, no investors wondering what your data is worth. Just me, Nori, and the stubborn idea that the off switch for the feed should be free.</p>
+          <p>If North has bought you back an evening or two, you can buy me a coffee. That's the entire business model.</p>
+          <a class="btn primary" href="https://ko-fi.com/jaiten" target="_blank" rel="noopener">♥ Buy me a coffee</a>
+          <p class="cta-note">One-time, any amount, no account needed. It keeps the lights on and Nori blinking.</p>
+        </div>
       </div>
     </section>
 
@@ -446,7 +489,7 @@
         <span>North</span>
       </div>
       <p>Find your true north.</p>
-      <p><a href="mailto:jaitenkangis@gmail.com">Request a feature</a> · <a href="goodbye.html">What happens if I uninstall?</a></p>
+      <p><a href="mailto:jaitenkangis@gmail.com">Request a feature</a> · <a href="https://ko-fi.com/jaiten" target="_blank" rel="noopener">Support North ♥</a> · <a href="goodbye.html">What happens if I uninstall?</a></p>
       <p class="fine">No accounts. No tracking. Your data never leaves your browser.</p>
     </div>
   </footer>

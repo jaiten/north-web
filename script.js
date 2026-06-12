@@ -20,6 +20,40 @@ document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 const nav = document.getElementById("nav");
 addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 10), { passive: true });
 
+// --- Pinned feature stack: scroll drives which showcase is on stage ---
+
+const stack = document.getElementById("feature-stack");
+if (stack) {
+  const frames = [...stack.querySelectorAll(".stack-frame")];
+  const dots = [...stack.querySelectorAll(".stack-dots i")];
+  const pinning = matchMedia("(min-width: 821px)").matches && !reducedMotion;
+
+  if (pinning) {
+    let cur = -1;
+    const update = () => {
+      const r = stack.getBoundingClientRect();
+      const total = r.height - innerHeight;
+      if (total <= 0) return;
+      const p = Math.min(0.999, Math.max(0, -r.top / total));
+      const idx = Math.floor(p * frames.length);
+      if (idx === cur) return;
+      cur = idx;
+      frames.forEach((f, i) => {
+        f.classList.toggle("active", i === idx);
+        f.classList.toggle("passed", i < idx);
+        f.classList.toggle("visible", i === idx); // replays the vignette animations
+      });
+      dots.forEach((d, i) => d.classList.toggle("on", i === idx));
+    };
+    update();
+    addEventListener("scroll", update, { passive: true });
+    addEventListener("resize", () => { cur = -1; update(); }, { passive: true });
+  } else {
+    // Small screens / reduced motion: frames flow normally and play on arrival.
+    frames.forEach(f => observer.observe(f));
+  }
+}
+
 // --- Theme toggle ---
 
 document.getElementById("btn-theme").addEventListener("click", () => {
