@@ -69,7 +69,7 @@
       {
         "@type": "Question",
         "name": "Can't I just turn it off when I'm tempted?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Not quickly. Weakening any protection requires staying with a breathing timer, then typing an honest sentence like 'I am choosing distraction over my own goals right now'. Leaving the tab restarts the timer. Most urges don't survive the wait." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Not quickly. Unlocking a site means staying with a breathing timer, then writing at least 20 honest words to your future self about why you need it. Leaving the tab restarts the timer, pasting is blocked, and keyboard mashing doesn't count. Most urges don't survive the wait." }
       },
       {
         "@type": "Question",
@@ -93,18 +93,18 @@
       <span>North</span>
     </a>
     <nav class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#demo">Try it</a>
-      <a href="#who">Who it's for</a>
-      <a href="#faq">FAQ</a>
+      <a href="#features">features</a>
+      <a href="#demo">try it</a>
+      <a href="#who">who it's for</a>
+      <a href="#faq">faq</a>
     </nav>
     <div class="nav-right">
-      <a class="donate-link" href="https://ko-fi.com/jaiten" target="_blank" rel="noopener">♥ Donate</a>
+      <a class="donate-link" href="https://ko-fi.com/jaiten" target="_blank" rel="noopener">♥ tip</a>
       <button class="theme-btn" id="btn-theme" aria-label="Switch between light and dark theme">
         <svg class="ico-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         <svg class="ico-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5 5l1.8 1.8M17.2 17.2L19 19M19 5l-1.8 1.8M6.8 17.2L5 19"/></svg>
       </button>
-      <a class="btn primary" href="#install">Add to Chrome</a>
+      <a class="btn primary" href="#install">add to Chrome</a>
     </div>
   </header>
 
@@ -112,50 +112,52 @@
 
     <!-- ============ Hero ============ -->
     <section class="hero">
-      <div class="hero-copy reveal">
-        <p class="eyebrow">Free Chrome extension</p>
-        <h1>Your attention has a direction.<br><span class="grad-text">Find your true north.</span></h1>
-        <p class="lede">North blocks Shorts, Reels, TikTok and the sites that eat your day. It keeps the parts you actually need, like your DMs, and pairs every block with a buddy who keeps you honest.</p>
-        <div class="hero-cta">
-          <a class="btn primary big" href="#install">Add to Chrome, it's free</a>
-          <p class="cta-note">No account. No tracking. Everything stays on your device.</p>
+      <div class="hero-copy">
+        <p class="eyebrow" data-hero>free Chrome extension</p>
+        <h1 id="hero-title">your attention has a direction. <span class="grad-text">find your true north.</span></h1>
+        <p class="lede" data-hero>North blocks Shorts, Reels, TikTok and the sites that eat your day. it keeps the parts you actually need — your DMs included — and pairs every block with a buddy who keeps you honest.</p>
+        <div class="hero-cta" data-hero>
+          <a class="btn primary big" href="#install">add to Chrome — it's free</a>
+          <p class="cta-note">no account. no tracking. everything stays on your device.</p>
         </div>
       </div>
 
       <!-- Live product mockup -->
-      <div class="hero-mock reveal delay-1" id="hero-mock" aria-label="Preview of the North block page">
-        <div class="float-chip fc1"><span class="dot"></span>Reels blocked</div>
+      <div class="hero-mock" id="hero-mock" aria-label="Preview of the North block page">
+        <div class="float-chip fc1"><span class="dot"></span>reels blocked</div>
         <div class="float-chip fc2"><span class="dot"></span>38 focused minutes today</div>
         <div class="mock-card">
           <div class="orb mock-orb"><div class="eyes"><span class="eye"></span><span class="eye"></span></div></div>
           <p class="mock-buddy">NORI</p>
-          <h3 class="mock-headline">This isn't the way.</h3>
-          <p class="mock-sub" id="mock-line">Habit brought you here, not intention. Let's point that energy somewhere real.</p>
+          <h3 class="mock-headline">this isn't it.</h3>
+          <p class="mock-sub" id="mock-line">habit brought you here, not intention. let's point that energy somewhere real.</p>
           <div class="mock-pills">
             <span class="mock-pill"><strong>x.com</strong></span>
             <span class="mock-pill"><strong>7</strong> visits stopped today</span>
           </div>
-          <div class="mock-btn primary">Take me somewhere better</div>
-          <div class="mock-btn ghost">I genuinely need this site</div>
+          <div class="mock-btn primary">take me somewhere better</div>
+          <div class="mock-btn ghost">i actually need this site</div>
         </div>
       </div>
+
+      <div class="scroll-cue" aria-hidden="true"><span></span></div>
     </section>
 
-    <!-- ============ The problem ============ -->
-    <section class="strip reveal" data-nori="Fifteen seconds at a time. I've watched it happen.">
-      <p>Hours vanish fifteen seconds at a time. Not because you're weak, but because thousands of engineers are paid to make sure they do. North is the counterweight: a few seconds of friction, right where the habit lives.</p>
+    <!-- ============ The problem: words light up as you scroll ============ -->
+    <section class="strip" id="problem" data-nori="fifteen seconds at a time. i've watched it happen.">
+      <p id="problem-text">hours vanish fifteen seconds at a time. not because you're weak — because thousands of engineers are paid to make sure they do. North is the counterweight: a few seconds of friction, right where the habit lives.</p>
     </section>
 
     <!-- ============ Features ============ -->
-    <section class="section" id="features" data-nori="This is the part where I show off a little.">
-      <h2 class="reveal">Everything the paid blockers do.<br>And the things they don't.</h2>
-      <p class="section-sub reveal">Keep scrolling — each one plays as it arrives.</p>
+    <section class="section" id="features" data-nori="this is the part where i show off a little.">
+      <h2 class="reveal">everything the paid blockers do.<br>and the things they don't.</h2>
+      <p class="section-sub reveal">keep scrolling — each one plays as it arrives.</p>
 
-      <!-- Pinned showcase stack: the section holds still while the features take turns -->
+      <!-- Pinned showcase: scroll drives which scene is on stage -->
       <div class="stack" id="feature-stack">
-        <div class="stack-pin">
+        <div class="stack-pin" id="stack-pin">
 
-      <!-- Showcase 1: shorts gone -->
+      <!-- Scene 1: shorts gone -->
       <div class="stack-frame show">
         <div class="show-viz">
           <div class="viz viz-shorts">
@@ -170,20 +172,20 @@
               </div>
               <div class="ph-block">
                 <div class="orb"><div class="eyes"><span class="eye"></span><span class="eye"></span></div></div>
-                <strong>Shorts blocked</strong>
-                <span>No unlock. That's the point.</span>
+                <strong>shorts blocked</strong>
+                <span>no unlock. that's the point.</span>
               </div>
             </div>
           </div>
         </div>
         <div class="show-copy">
-          <p class="eyebrow">The big one</p>
-          <h3>Short videos, gone.</h3>
-          <p>Shorts, Reels, TikTok, Spotlight. Hidden from every feed, unreachable by URL, and never unlockable. The endless feed finally ends.</p>
+          <p class="eyebrow">the big one</p>
+          <h3>short videos, gone.</h3>
+          <p>Shorts, Reels, TikTok, Spotlight. hidden from every feed, unreachable by URL, and never unlockable. the endless feed finally ends.</p>
         </div>
       </div>
 
-      <!-- Showcase 2: friend's reel -->
+      <!-- Scene 2: friend's reel -->
       <div class="stack-frame show flip">
         <div class="show-viz">
           <div class="viz viz-share">
@@ -194,7 +196,7 @@
               <div class="reelcard m4">
                 <div class="reel-thumb"><span class="ph-play"></span></div>
                 <div class="reel-meta">
-                  <strong>Playing — just this one</strong>
+                  <strong>playing — just this one</strong>
                   <span class="reel-timer"><i></i></span>
                   <em>5-minute pass &middot; swiping to the next is blocked</em>
                 </div>
@@ -203,13 +205,13 @@
           </div>
         </div>
         <div class="show-copy">
-          <p class="eyebrow">Stay human</p>
-          <h3>The one your friend sent still plays.</h3>
-          <p>A reel opened from a DM or a pasted link gets five minutes. Just that one. The feed behind it stays sealed. No other blocker does this.</p>
+          <p class="eyebrow">stay human</p>
+          <h3>the one your friend sent still plays.</h3>
+          <p>a reel opened from a DM or a pasted link gets five minutes. just that one. the feed behind it stays sealed. no other blocker does this.</p>
         </div>
       </div>
 
-      <!-- Showcase 3: messages only -->
+      <!-- Scene 3: messages only -->
       <div class="stack-frame show">
         <div class="show-viz">
           <div class="viz viz-ig">
@@ -224,20 +226,20 @@
                 <div class="ig-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
                 <div class="ig-lock">
                   <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-                  Feed blocked
+                  feed blocked
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="show-copy">
-          <p class="eyebrow">Keep your people</p>
-          <h3>Messages only. On every network.</h3>
-          <p>Instagram, LinkedIn, Facebook, X — your DMs work like nothing happened, while the feeds, Explore and trending simply stop existing. Each site opens straight to your inbox.</p>
+          <p class="eyebrow">keep your people</p>
+          <h3>messages only. on every network.</h3>
+          <p>Instagram, LinkedIn, Facebook, X — your DMs work like nothing happened, while the feeds, Explore and trending simply stop existing. each site opens straight to your inbox.</p>
         </div>
       </div>
 
-      <!-- Showcase 4: YouTube topic mode -->
+      <!-- Scene 4: YouTube topic mode -->
       <div class="stack-frame show flip">
         <div class="show-viz">
           <div class="viz viz-yt">
@@ -256,8 +258,8 @@
         </div>
         <div class="show-copy">
           <p class="eyebrow">YouTube, on your terms</p>
-          <h3>Only what you came for.</h3>
-          <p>Pick your topics — guitar, coding, calculus — and everything else quietly disappears from feeds and search. The home page, related videos and comments can go too.</p>
+          <h3>only what you came for.</h3>
+          <p>pick your topics — guitar, coding, calculus — and everything else quietly disappears from feeds and search. the sidebar, home page, related videos and comments can go too.</p>
         </div>
       </div>
 
@@ -266,82 +268,84 @@
       </div>
 
       <!-- Compact extras -->
-      <div class="more-grid reveal">
+      <div class="more-grid" id="more-grid">
         <div class="more">
           <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
-          <div><h3>Schedules &amp; budgets</h3><p>Block 9 to 5, or allow 20 minutes a day. Midnight resets the clock.</p></div>
+          <div><h3>schedules &amp; budgets</h3><p>block 9 to 5, or allow 20 minutes a day. midnight resets the clock.</p></div>
         </div>
         <div class="more">
           <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l8.5-8.5a2 2 0 0 1 1.4-.6H19a2 2 0 0 1 2 2v6.1a2 2 0 0 1-.6 1.4L12 21z"/><circle cx="16" cy="8" r="1.6"/></svg></span>
-          <div><h3>Keyword blocking</h3><p>Stop pages by what they're about, on every site at once.</p></div>
+          <div><h3>keyword blocking</h3><p>stop pages by what they're about, on every site at once.</p></div>
         </div>
         <div class="more">
           <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 7.8-8 9-4.6-1.2-8-4.5-8-9V6z"/></svg></span>
-          <div><h3>18+, always blocked</h3><p>Built in, on for everyone, and there is no unlock path. Ever.</p></div>
+          <div><h3>18+, always blocked</h3><p>built in, on for everyone, and there is no unlock path. ever.</p></div>
         </div>
         <div class="more">
-          <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M6 3h12M6 21h12M8 3c0 7 8 7 8 11s-8 4-8 7M16 3c0 7-8 7-8 11s8 4 8 7"/></svg></span>
-          <div><h3>The honest unlock</h3><p>A breathing timer, then a true sentence typed word for word.</p></div>
+          <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 4v13a3 3 0 0 0 3 3"/><path d="M10 9h6M10 13h4"/></svg></span>
+          <div><h3>the unlock journal</h3><p>every unlock costs 20 honest words to future you. reading them back stings — that's the point.</p></div>
         </div>
         <div class="more">
           <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v3"/></svg></span>
-          <div><h3>Lockdown mode</h3><p>Exam week: your allowlist or nothing, for hours you can't undo.</p></div>
+          <div><h3>lockdown mode</h3><p>exam week: your allowlist or nothing, for hours you can't undo.</p></div>
         </div>
         <div class="more">
-          <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 4v13a3 3 0 0 0 3 3"/><path d="M10 9h6M10 13h4"/></svg></span>
-          <div><h3>The unlock journal</h3><p>Every unlock needs a reason in your own words. Reading them back stings — that's the point.</p></div>
+          <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M6 3h12M6 21h12M8 3c0 7 8 7 8 11s-8 4-8 7M16 3c0 7-8 7-8 11s8 4 8 7"/></svg></span>
+          <div><h3>the honest unlock</h3><p>a breathing timer first. leave the tab and it restarts.</p></div>
         </div>
         <div class="more">
           <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg></span>
-          <div><h3>Progress, counted</h3><p>Every dodged distraction and focused minute, shown honestly.</p></div>
+          <div><h3>progress, counted</h3><p>every dodged distraction and focused minute, shown honestly.</p></div>
         </div>
         <div class="more">
           <span class="more-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4-2-7-4-7-9V5l7-2 7 2v7c0 5-3 7-7 9z"/><path d="M9 11.5l2 2 4-4"/></svg></span>
-          <div><h3>Completely private</h3><p>No account, no servers, no tracking. It all stays in your browser.</p></div>
+          <div><h3>completely private</h3><p>no account, no servers, no tracking. it all stays in your browser.</p></div>
         </div>
       </div>
     </section>
 
-    <!-- ============ Interactive demo ============ -->
-    <section class="section demo" id="demo" data-nori="Go on, type it. I'll wait.">
-      <h2 class="reveal">Try the honest moment.</h2>
-      <p class="section-sub reveal">This is what it takes to unlock a blocked site in North. Type it exactly.</p>
-      <div class="demo-box reveal delay-1">
-        <p class="demo-label">Nori asks you to type this sentence:</p>
-        <p class="demo-phrase" id="demo-phrase">I am choosing distraction over my own goals right now</p>
-        <p class="demo-label demo-label-you">Your turn — type it in the box below</p>
-        <input type="text" id="demo-input" placeholder="Start typing here, then press Enter" autocomplete="off" spellcheck="false">
+    <!-- ============ Interactive demo: the journal ============ -->
+    <section class="section demo" id="demo" data-nori="go on, write it. i'll wait.">
+      <h2 class="reveal">try the honest moment.</h2>
+      <p class="section-sub reveal">unlocking a blocked site in North costs 20 honest words to future you. see how it feels.</p>
+      <div class="demo-box reveal">
+        <p class="demo-label">Nori asks: why do you need the site right now? what will you do there, and when will you leave?</p>
+        <textarea id="demo-input" rows="3" placeholder="be honest. this is the actual unlock — twenty real words, no pasting, no keyboard mash." autocomplete="off"></textarea>
+        <div class="demo-meta">
+          <span id="demo-count">0 / 20 words</span>
+          <button class="btn primary small" id="demo-btn">unlock</button>
+        </div>
         <p class="demo-result hidden" id="demo-result"></p>
       </div>
     </section>
 
     <!-- ============ How it works ============ -->
-    <section class="section" id="how" data-nori="Three minutes of setup. I counted.">
-      <h2 class="reveal">Three minutes to set up. Months of hours back.</h2>
-      <div class="steps">
-        <div class="step reveal">
+    <section class="section" id="how" data-nori="three minutes of setup. i counted.">
+      <h2 class="reveal">three minutes to set up. months of hours back.</h2>
+      <div class="steps" id="steps">
+        <div class="step">
           <span class="step-num">1</span>
-          <h3>Install North</h3>
-          <p>Add it to Chrome. The settings page opens and nothing is blocked until you choose it.</p>
+          <h3>install North</h3>
+          <p>add it to Chrome. the settings page opens and nothing is blocked until you choose it.</p>
         </div>
-        <div class="step reveal delay-1">
+        <div class="step">
           <span class="step-num">2</span>
-          <h3>Pick your protections</h3>
-          <p>Block short videos, choose your sites, set schedules and budgets, add the keywords you can't unsee.</p>
+          <h3>pick your protections</h3>
+          <p>block short videos, choose your sites, set schedules and budgets, add the keywords you can't unsee.</p>
         </div>
-        <div class="step reveal delay-2">
+        <div class="step">
           <span class="step-num">3</span>
           <h3>Nori holds the line</h3>
-          <p>Every blocked visit is a small win, counted and shown. Changing your mind takes a wait and an honest sentence.</p>
+          <p>every blocked visit is a small win, counted and shown. changing your mind takes a wait and 20 honest words.</p>
         </div>
       </div>
     </section>
 
     <!-- ============ Who it's for ============ -->
-    <section class="section" id="who" data-nori="Sound like anyone you know?">
-      <h2 class="reveal">Built for the moment your thumb moves on its own.</h2>
-      <div class="who-grid">
-        <article class="who-card reveal">
+    <section class="section" id="who" data-nori="sound like anyone you know?">
+      <h2 class="reveal">built for the moment your thumb moves on its own.</h2>
+      <div class="who-grid" id="who-grid">
+        <article class="who-card">
           <svg class="avatar" viewBox="0 0 120 120" aria-hidden="true">
             <circle cx="60" cy="60" r="56" fill="#eef0fb"/>
             <path d="M28 108a32 28 0 0 1 64 0z" fill="#6366f1"/>
@@ -355,10 +359,10 @@
               <circle cx="88" cy="61" r="3" fill="#fbbf24"/>
             </g>
           </svg>
-          <h3>Students</h3>
-          <p>Exam season and a TikTok habit don't mix. Feeds blocked during study hours, the group chat untouched.</p>
+          <h3>students</h3>
+          <p>exam season and a TikTok habit don't mix. feeds blocked during study hours, the group chat untouched.</p>
         </article>
-        <article class="who-card reveal delay-1">
+        <article class="who-card">
           <svg class="avatar" viewBox="0 0 120 120" aria-hidden="true">
             <circle cx="60" cy="60" r="56" fill="#e7f6f3"/>
             <path d="M28 108a32 28 0 0 1 64 0z" fill="#0ea5a0"/>
@@ -374,10 +378,10 @@
             </g>
             <rect x="40" y="94" width="40" height="12" rx="3" fill="#374061"/>
           </svg>
-          <h3>Deep workers</h3>
-          <p>One focus session seals everything until it ends. The "quick check" that costs 40 minutes stops happening.</p>
+          <h3>deep workers</h3>
+          <p>one focus session seals everything until it ends. the "quick check" that costs 40 minutes stops happening.</p>
         </article>
-        <article class="who-card reveal delay-2">
+        <article class="who-card">
           <svg class="avatar" viewBox="0 0 120 120" aria-hidden="true">
             <circle cx="60" cy="60" r="56" fill="#fdf3ea"/>
             <path d="M26 108a32 28 0 0 1 64 0z" fill="#f59e0b"/>
@@ -394,10 +398,10 @@
               <path d="M84 24l-5-3M86 34l-6 1" stroke="#9094b4" stroke-width="2" stroke-linecap="round"/>
             </g>
           </svg>
-          <h3>Anyone quitting short videos</h3>
-          <p>Reels and Shorts never end, so North ends them. The one a friend sends still plays. Wave the rest goodbye.</p>
+          <h3>anyone quitting short videos</h3>
+          <p>reels and shorts never end, so North ends them. the one a friend sends still plays. wave the rest goodbye.</p>
         </article>
-        <article class="who-card reveal">
+        <article class="who-card">
           <svg class="avatar" viewBox="0 0 120 120" aria-hidden="true">
             <circle cx="60" cy="60" r="56" fill="#f3edfb"/>
             <path d="M24 108a32 28 0 0 1 64 0z" fill="#8b5cf6"/>
@@ -409,74 +413,74 @@
             <path d="M92 96V40" stroke="#374061" stroke-width="3" stroke-linecap="round"/>
             <g class="av-flag"><path d="M92 40h-22l6 8-6 8h22z" fill="#2dd4bf"/></g>
           </svg>
-          <h3>People who've tried blockers</h3>
-          <p>You turned the last one off in a weak moment. North makes that moment slow, present and honest. This time it holds.</p>
+          <h3>people who've tried blockers</h3>
+          <p>you turned the last one off in a weak moment. North makes that moment slow, present and honest. this time it holds.</p>
         </article>
       </div>
     </section>
 
     <!-- ============ Privacy ============ -->
-    <section class="strip reveal" data-nori="What happens in your browser stays in your browser.">
-      <p><strong>The honest fine print:</strong> North has no accounts, no servers and no tracking. Your settings and stats live in your browser and nowhere else. And yes, you can always uninstall it. North's job is to interrupt habit, not to imprison you.</p>
+    <section class="strip" data-nori="what happens in your browser stays in your browser.">
+      <p class="reveal"><strong>the honest fine print:</strong> North has no accounts, no servers and no tracking. your settings and stats live in your browser and nowhere else. and yes, you can always uninstall it. North's job is to interrupt habit, not to imprison you.</p>
     </section>
 
     <!-- ============ FAQ ============ -->
-    <section class="section" id="faq" data-nori="Straight answers. It's kind of my thing.">
-      <h2 class="reveal">Questions, answered straight.</h2>
+    <section class="section" id="faq" data-nori="straight answers. it's kind of my thing.">
+      <h2 class="reveal">questions, answered straight.</h2>
       <div class="faq-list">
         <details class="reveal">
-          <summary>Is North free?</summary>
-          <div class="faq-body"><p>Yes, completely free. No account, no credit card, no catch.</p></div>
+          <summary>is North free?</summary>
+          <div class="faq-body"><p>yes, completely free. no account, no credit card, no catch.</p></div>
         </details>
         <details class="reveal">
-          <summary>Does it block YouTube Shorts and Instagram Reels?</summary>
-          <div class="faq-body"><p>Yes, as a category. Hidden in feeds, unreachable by URL, never unlockable. TikTok can be blocked entirely with one switch.</p></div>
+          <summary>does it block YouTube Shorts and Instagram Reels?</summary>
+          <div class="faq-body"><p>yes, as a category. hidden in feeds, unreachable by URL, never unlockable. TikTok can be blocked entirely with one switch.</p></div>
         </details>
         <details class="reveal">
-          <summary>Can I still watch the reel my friend sent me?</summary>
-          <div class="faq-body"><p>Yes. Opened from a DM, another app or a pasted link, that single item plays for 5 minutes. Swiping to the next one is blocked, and you get at most one new pass every 10 minutes.</p></div>
+          <summary>can i still watch the reel my friend sent me?</summary>
+          <div class="faq-body"><p>yes. opened from a DM, another app or a pasted link, that single item plays for 5 minutes. swiping to the next one is blocked, and you get at most one new pass every 10 minutes.</p></div>
         </details>
         <details class="reveal">
-          <summary>What stops me from just turning it off?</summary>
-          <div class="faq-body"><p>A breathing timer you have to stay present for. Switch tabs or apps and it restarts. Then you type a sentence like "I am choosing distraction over my own goals right now", word for word, no pasting. If the sentence doesn't feel true, you'll close the tab instead. That's the design.</p></div>
+          <summary>what stops me from just turning it off?</summary>
+          <div class="faq-body"><p>a breathing timer you have to stay present for — switch tabs and it restarts. then you write at least 20 honest words to future you about why you need the site. no pasting, no keyboard mash. if you can't fill 20 words, you probably didn't need it. that's the design.</p></div>
         </details>
         <details class="reveal">
-          <summary>Is my data private?</summary>
-          <div class="faq-body"><p>Completely. No account, no analytics, no network calls. Everything North knows lives in your browser's local storage.</p></div>
+          <summary>is my data private?</summary>
+          <div class="faq-body"><p>completely. no account, no analytics, no network calls. everything North knows lives in your browser's local storage.</p></div>
         </details>
         <details class="reveal">
-          <summary>What's Lockdown mode?</summary>
-          <div class="faq-body"><p>Exam-week mode. You pick a short allowlist — your docs, your school portal — set a duration up to 24 hours, and everything else on the internet stops loading. There is deliberately no off switch: not the challenge, not a setting, nothing. It ends when the clock ends.</p></div>
+          <summary>what's lockdown mode?</summary>
+          <div class="faq-body"><p>exam-week mode. you pick a short allowlist — your docs, your school portal — set a duration up to 24 hours, and everything else on the internet stops loading. there is deliberately no off switch: not the challenge, not a setting, nothing. it ends when the clock ends.</p></div>
         </details>
         <details class="reveal">
-          <summary>What about Incognito?</summary>
+          <summary>what about Incognito?</summary>
           <div class="faq-body"><p>Chrome requires you to allow extensions in Incognito manually. North reminds you until you do, because distractions love a side door.</p></div>
         </details>
       </div>
     </section>
 
     <!-- ============ From the maker ============ -->
-    <section class="section" id="maker" data-nori="That's my human. Be nice to him.">
+    <section class="section" id="maker" data-nori="that's my human. be nice to him.">
       <div class="maker-card reveal">
         <div class="orb maker-orb"><div class="eyes"><span class="eye"></span><span class="eye"></span></div></div>
         <div class="maker-copy">
-          <h2>Made by one person. Kept free on purpose.</h2>
-          <p>Hi — I'm Jaiten. I built North because my own attention kept losing fights it never agreed to. There's no company behind this: no ads, no subscription, no investors wondering what your data is worth. Just me, Nori, and the stubborn idea that the off switch for the feed should be free.</p>
-          <p>If North has bought you back an evening or two, you can buy me a coffee. That's the entire business model.</p>
-          <a class="btn primary" href="https://ko-fi.com/jaiten" target="_blank" rel="noopener">♥ Buy me a coffee</a>
-          <p class="cta-note">One-time, any amount, no account needed. It keeps the lights on and Nori blinking.</p>
+          <h2>made by one person. kept free on purpose.</h2>
+          <p>hi — i'm Jaiten. i built North because my own attention kept losing fights it never agreed to. there's no company behind this: no ads, no subscription, no investors wondering what your data is worth. just me, Nori, and the stubborn idea that the off switch for the feed should be free.</p>
+          <p>if North has bought you back an evening or two, you can leave a tip. that's the entire business model.</p>
+          <a class="btn primary" href="https://ko-fi.com/jaiten" target="_blank" rel="noopener">♥ leave a tip</a>
+          <p class="cta-note">one-time, any amount, no account needed. it keeps the lights on and Nori blinking.</p>
         </div>
       </div>
     </section>
 
     <!-- ============ Final CTA ============ -->
-    <section class="section cta-final" id="install" data-nori="Room for one more icon up there?">
+    <section class="section cta-final" id="install" data-nori="room for one more icon up there?">
       <div class="reveal">
         <img src="assets/icon128.png" alt="" width="72" height="72" class="cta-icon">
-        <h2>The feed will survive without you.</h2>
-        <p class="section-sub">Your goals might not survive the feed. Install North and find out what a day with fewer detours feels like.</p>
-        <a class="btn primary big" href="https://chrome.google.com/webstore" rel="noopener">Add to Chrome, it's free</a>
-        <p class="cta-note">Available for Chrome and Chromium browsers. Edge, Brave and Arc work too.</p>
+        <h2>the feed will survive without you.</h2>
+        <p class="section-sub">your goals might not survive the feed. install North and find out what a day with fewer detours feels like.</p>
+        <a class="btn primary big" href="https://chrome.google.com/webstore" rel="noopener">add to Chrome — it's free</a>
+        <p class="cta-note">works on Chrome, Edge, Brave, Arc — and Firefox.</p>
       </div>
     </section>
 
@@ -488,18 +492,23 @@
         <img src="assets/icon128.png" alt="" width="28" height="28">
         <span>North</span>
       </div>
-      <p>Find your true north.</p>
-      <p><a href="mailto:jaitenkangis@gmail.com">Request a feature</a> · <a href="https://ko-fi.com/jaiten" target="_blank" rel="noopener">Support North ♥</a> · <a href="goodbye.html">What happens if I uninstall?</a></p>
-      <p class="fine">No accounts. No tracking. Your data never leaves your browser.</p>
+      <p>find your true north.</p>
+      <p><a href="mailto:jaitenkangis@gmail.com">request a feature</a> · <a href="https://ko-fi.com/jaiten" target="_blank" rel="noopener">leave a tip ♥</a> · <a href="goodbye.html">what happens if i uninstall?</a></p>
+      <p class="fine">no accounts. no tracking. your data never leaves your browser.</p>
     </div>
   </footer>
 
   <!-- Nori, the scroll companion -->
   <div class="nori" id="nori" aria-hidden="true">
-    <div class="nori-bubble" id="nori-bubble">Hi, I'm Nori.</div>
+    <div class="nori-bubble" id="nori-bubble">hi, i'm Nori.</div>
     <div class="orb nori-orb" id="nori-orb"><div class="eyes"><span class="eye"></span><span class="eye"></span></div></div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- Scroll engine: GSAP + ScrollTrigger + Lenis. script.js falls back to
+       IntersectionObserver reveals if these fail to load. -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
