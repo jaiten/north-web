@@ -1,15 +1,11 @@
-// North website — scroll engine (GSAP + ScrollTrigger + Lenis, CDN) with a
-// plain IntersectionObserver fallback when the CDN is blocked or motion is
-// reduced. Everything brand-critical (theme, demo, Nori) works either way.
+// North website — scroll engine (GSAP + ScrollTrigger + Lenis, CDN).
+// Animations are on by default for everyone; ?noanim forces the static
+// version, which is also the fallback when the CDN is blocked.
 
-// ?anim forces the full experience, ?noanim forces the static one — handy for
-// testing either path regardless of the OS motion setting.
 const qs = new URLSearchParams(location.search);
-const reducedMotion = qs.has("anim")
-  ? false
-  : window.matchMedia("(prefers-reduced-motion: reduce)").matches || qs.has("noanim");
+const noAnim = qs.has("noanim");
 const hasGsap = typeof window.gsap !== "undefined" && typeof window.ScrollTrigger !== "undefined";
-const animated = hasGsap && !reducedMotion;
+const animated = hasGsap && !noAnim;
 
 if (!animated) document.documentElement.classList.add("no-anim");
 
@@ -115,7 +111,7 @@ if (animated) {
     });
   }
 
-  // --- Pinned feature stack: scroll scrubs through the four scenes --------
+  // --- Pinned feature stack: scroll scrubs through and locks onto scenes --
 
   const stack = document.getElementById("feature-stack");
   if (stack && matchMedia("(min-width: 821px)").matches) {
@@ -131,6 +127,11 @@ if (animated) {
     gsap.set(frames[0], { autoAlpha: 1, y: 0, scale: 1 });
     setScene(0);
 
+    // Timeline layout: scene i is stable from i+0.55 to i+1 (scene 0 from 0).
+    // The snap points below make the wheel "lock on" to whichever scene
+    // you're closest to instead of resting mid-transition.
+    const TAIL = 0.6;
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: stack,
@@ -145,8 +146,18 @@ if (animated) {
       tl.to(frames[i - 1], { autoAlpha: 0, y: -46, scale: 0.985, duration: 0.45 }, i)
         .fromTo(f, { autoAlpha: 0, y: 46, scale: 0.985 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.45 }, i + 0.1);
     });
-    // Pad the timeline so the last scene gets a full scroll segment too.
-    tl.to({}, { duration: 0.6 });
+    tl.to({}, { duration: TAIL }); // the last scene gets a full segment too
+
+    // Lock-on: snap scroll to the stable point of the nearest scene.
+    const dur = tl.duration();
+    const snapPoints = frames.map((_, i) => (i === 0 ? 0 : Math.min(1, (i + 0.55) / dur)));
+    snapPoints.push(1);
+    ScrollTrigger.create({
+      trigger: stack,
+      start: "top 70px",
+      end: "bottom bottom",
+      snap: { snapTo: snapPoints, duration: { min: 0.25, max: 0.7 }, delay: 0.08, ease: "power2.inOut" }
+    });
   } else if (stack) {
     // Small screens: frames flow normally and play their vignette on arrival.
     const io = new IntersectionObserver(entries => {
@@ -163,7 +174,7 @@ if (animated) {
     onEnter: batch => batch.forEach(el => el.classList.add("visible"))
   });
 
-  for (const sel of ["#more-grid .more", "#steps .step", "#who-grid .who-card"]) {
+  for (const sel of ["#more-grid .more", "#why-grid .why-card", "#steps .step", "#who-grid .who-card"]) {
     const items = gsap.utils.toArray(sel);
     if (!items.length) continue;
     gsap.from(items, {
@@ -188,12 +199,12 @@ if (animated) {
   }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
   document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 
-  // Sticky stack driven by plain scroll math (the pre-GSAP behaviour).
+  // Sticky stack driven by plain scroll math.
   const stack = document.getElementById("feature-stack");
   if (stack) {
     const frames = [...stack.querySelectorAll(".stack-frame")];
     const dots = [...stack.querySelectorAll(".stack-dots i")];
-    if (matchMedia("(min-width: 821px)").matches && !reducedMotion) {
+    if (matchMedia("(min-width: 821px)").matches && !noAnim) {
       let cur = -1;
       const update = () => {
         const r = stack.getBoundingClientRect();
@@ -220,88 +231,18 @@ if (animated) {
 }
 
 // ---------------------------------------------------------------------------
-// Eyes follow the cursor (hero orb, companion orb, vignette orbs)
-// ---------------------------------------------------------------------------
-
-if (!reducedMotion) {
-  let eyeRaf = null;
-  addEventListener("mousemove", e => {
-    if (eyeRaf) return;
-    eyeRaf = requestAnimationFrame(() => {
-      eyeRaf = null;
-      document.querySelectorAll(".eyes").forEach(eyes => {
-        const r = eyes.getBoundingClientRect();
-        if (!r.width || r.top > innerHeight || r.bottom < 0) return;
-        const dx = e.clientX - (r.left + r.width / 2);
-        const dy = e.clientY - (r.top + r.height / 2);
-        const d = Math.hypot(dx, dy) || 1;
-        const reach = Math.min(2.4, d / 60);
-        eyes.style.setProperty("--px", (dx / d) * reach + "px");
-        eyes.style.setProperty("--py", (dy / d) * reach + "px");
-      });
-    });
-  }, { passive: true });
-}
-
-// ---------------------------------------------------------------------------
-// Nori, the scroll companion
-// ---------------------------------------------------------------------------
-
-const nori = document.getElementById("nori");
-const noriBubble = document.getElementById("nori-bubble");
-const noriOrb = document.getElementById("nori-orb");
-
-const NORI_QUIPS = [
-  "you found my button.",
-  "i'd wave, but i'm a sphere.",
-  "north is up. i checked.",
-  "imagine me on every blocked tab. cozy, right?",
-  "scroll on. i'll keep up."
-];
-let quipIdx = 0;
-
-function noriSay(text) {
-  if (!text || noriBubble.textContent === text) return;
-  noriBubble.textContent = text;
-  noriBubble.classList.remove("pop");
-  void noriBubble.offsetWidth; // restart the pop animation
-  noriBubble.classList.add("pop");
-}
-
-if (nori && !reducedMotion) {
-  // Appears once you're past the hero, steps aside before the footer.
-  addEventListener("scroll", () => {
-    const past = scrollY > innerHeight * 0.6;
-    const nearEnd = scrollY + innerHeight > document.body.scrollHeight - 120;
-    nori.classList.toggle("here", past && !nearEnd);
-  }, { passive: true });
-
-  // Speaks about whatever section you're looking at.
-  const sectionWatch = new IntersectionObserver(entries => {
-    for (const e of entries) {
-      if (e.isIntersecting) noriSay(e.target.dataset.nori);
-    }
-  }, { rootMargin: "-35% 0px -45% 0px" });
-  document.querySelectorAll("[data-nori]").forEach(s => sectionWatch.observe(s));
-
-  noriOrb.addEventListener("click", () => {
-    noriSay(NORI_QUIPS[quipIdx++ % NORI_QUIPS.length]);
-  });
-}
-
-// ---------------------------------------------------------------------------
-// Hero mock: rotating buddy lines
+// Hero mock: rotating block-page lines
 // ---------------------------------------------------------------------------
 
 const MOCK_LINES = [
   "habit brought you here, not intention. let's point that energy somewhere real.",
-  "the algorithm wanted your next 40 minutes. i said no for you.",
+  "the algorithm wanted your next 40 minutes. North said no for you.",
   "past you doesn't trust this moment, and past you was right.",
   "nothing in that feed will matter tomorrow. the thing you're avoiding probably will."
 ];
 let mockIdx = 0;
 const mockLine = document.getElementById("mock-line");
-if (mockLine && !reducedMotion) {
+if (mockLine && !noAnim) {
   setInterval(() => {
     mockIdx = (mockIdx + 1) % MOCK_LINES.length;
     mockLine.style.opacity = "0";
@@ -320,7 +261,7 @@ document.querySelectorAll(".faq-list details").forEach(d => {
   const body = d.querySelector(".faq-body");
   d.querySelector("summary").addEventListener("click", e => {
     e.preventDefault();
-    if (reducedMotion) { d.open = !d.open; return; }
+    if (noAnim) { d.open = !d.open; return; }
     if (d.dataset.busy) return;
     d.dataset.busy = "1";
     if (d.open) {
@@ -373,7 +314,7 @@ if (demoInput) {
     const ok = demoNoteOk(demoInput.value);
     const n = demoWords(demoInput.value).length;
     demoCount.textContent = ok ? `${n} words ✓`
-      : n >= MIN_WORDS ? `${n} words — make them real ones`
+      : n >= MIN_WORDS ? `${n} words, make them real ones`
       : `${n} / ${MIN_WORDS} words`;
     demoCount.classList.toggle("done", ok);
     demoBtn.classList.toggle("ready", ok);
@@ -395,7 +336,7 @@ if (demoInput) {
     } else {
       const n = demoWords(demoInput.value).length;
       showResult(n < MIN_WORDS
-        ? `that's ${n} word${n === 1 ? "" : "s"}. the deal is ${MIN_WORDS} honest ones — keep going.`
+        ? `that's ${n} word${n === 1 ? "" : "s"}. the deal is ${MIN_WORDS} honest ones. keep going.`
         : "that doesn't read like a real reason yet. write it like you'd explain it to a friend.");
     }
   });

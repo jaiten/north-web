@@ -129,88 +129,20 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 }
 .btn.ghosted:hover { border-color: var(--accent); color: var(--text); }
 
-/* ====================== Nori, the character ====================== */
+/* ====================== Shared bits ====================== */
 
-.orb {
-  position: relative;
-  border-radius: 50%;
-  background: var(--grad);
-  box-shadow: 0 6px 22px rgba(99, 102, 241, 0.35), inset -6px -8px 16px rgba(40, 40, 120, 0.18);
-  animation: breathe 4.5s ease-in-out infinite;
-}
+/* Kept for goodbye.html's gradient circle */
 @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07); } }
 
-.eyes {
-  position: absolute;
-  top: 36%;
-  left: 0; right: 0;
-  display: flex;
-  justify-content: center;
-  gap: 22%;
-}
-.eye {
-  width: 19%;
-  aspect-ratio: 1;
-  background: #fff;
-  border-radius: 50%;
-  position: relative;
-  animation: blink 4.8s ease-in-out infinite;
-}
-.eye::after {
-  content: "";
-  position: absolute;
-  inset: 22%;
-  background: #20234a;
-  border-radius: 50%;
-  transform: translate(var(--px, 0px), var(--py, 0px));
-  transition: transform 0.18s ease-out;
-}
+/* Avatar eyes in the who-grid blink with this */
 @keyframes blink {
   0%, 91%, 100% { transform: scaleY(1); }
   94%, 96% { transform: scaleY(0.08); }
 }
 
-/* Scroll companion */
-.nori {
-  position: fixed;
-  right: clamp(14px, 3vw, 34px);
-  bottom: clamp(14px, 4vh, 34px);
-  z-index: 30;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
-  opacity: 0;
-  transform: translateY(24px) scale(0.9);
-  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2);
-  pointer-events: none;
-}
-.nori.here { opacity: 1; transform: none; pointer-events: auto; }
-.nori-orb {
-  width: 58px; height: 58px;
-  cursor: pointer;
-  animation: bob 3.6s ease-in-out infinite;
-}
 @keyframes bob {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-7px); }
-}
-.nori-bubble {
-  max-width: 250px;
-  background: var(--bg-card);
-  border: 1px solid var(--line);
-  border-radius: 16px 16px 4px 16px;
-  box-shadow: var(--shadow-sm), 0 12px 34px rgba(60, 60, 140, 0.14);
-  padding: 11px 15px;
-  font-size: 13.5px;
-  font-weight: 600;
-  color: var(--text-dim);
-  line-height: 1.45;
-  transform-origin: bottom right;
-}
-.nori-bubble.pop { animation: bubble-pop 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.25); }
-@keyframes bubble-pop {
-  from { transform: scale(0.7); opacity: 0; }
 }
 
 /* ====================== Nav ====================== */
@@ -328,12 +260,16 @@ main { position: relative; z-index: 1; }
   transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 .mock-card:hover { transform: rotate(0deg) scale(1.02); box-shadow: 0 26px 70px rgba(60, 60, 140, 0.2); }
-.mock-orb { width: 62px; height: 62px; margin: 0 auto 14px; }
-.mock-buddy {
-  font-size: 11px; font-weight: 800;
-  letter-spacing: 0.16em;
-  color: var(--teal);
-  margin: 0 0 6px;
+.mock-mark {
+  width: 56px; height: 56px;
+  margin: 0 auto 14px;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  color: #fff;
+  background: var(--grad);
+  border-radius: 17px;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
 }
 .mock-headline { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
 .mock-sub { font-size: 13.5px; color: var(--text-dim); margin: 0 0 16px; min-height: 60px; transition: opacity 0.5s ease; }
@@ -378,36 +314,6 @@ main { position: relative; z-index: 1; }
 .float-chip.fc2 { bottom: -6%; right: -4%; }
 .float-chip.fc2 .dot { background: var(--accent); }
 @media (max-width: 880px) { .float-chip { display: none; } }
-
-/* Scroll cue at the bottom of the hero */
-.scroll-cue {
-  grid-column: 1 / -1;
-  display: flex;
-  justify-content: center;
-  padding-top: clamp(18px, 4vh, 44px);
-}
-.scroll-cue span {
-  width: 26px; height: 42px;
-  border: 2px solid var(--text-faint);
-  border-radius: 999px;
-  position: relative;
-  opacity: 0.7;
-}
-.scroll-cue span::after {
-  content: "";
-  position: absolute;
-  top: 7px; left: 50%;
-  width: 4px; height: 8px;
-  margin-left: -2px;
-  border-radius: 99px;
-  background: var(--accent);
-  animation: cue-drop 1.8s ease-in-out infinite;
-}
-@keyframes cue-drop {
-  0% { transform: translateY(0); opacity: 1; }
-  70% { transform: translateY(14px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 0; }
-}
 
 /* ====================== Strips ====================== */
 
@@ -534,15 +440,21 @@ html.no-anim #problem .pw { opacity: 1; }
 }
 
 /* --- Vignette 1: the endless feed, ended --- */
+/* The bezel is padding, not border, and the screen clips its own corners:
+   no border/background radius seams at the corners, on any zoom level. */
 .phone {
   width: 200px; height: 320px;
   border-radius: 28px;
-  border: 6px solid #2a2d55;
-  /* Same color as the border: the sliver where the two radii meet renders
-     solid instead of as a translucent corner artifact. */
   background: #2a2d55;
+  padding: 6px;
+}
+.ph-screen {
   position: relative;
+  height: 100%;
+  border-radius: 22px;
   overflow: hidden;
+  background: #f3f4fc;
+  transform: translateZ(0); /* force the radius clip onto its own layer */
 }
 .ph-feed { position: absolute; inset: 0; background: #f3f4fc; animation: ph-scroll 9s linear infinite; }
 @keyframes ph-scroll {
@@ -580,7 +492,17 @@ html.no-anim #problem .pw { opacity: 1; }
   from { opacity: 0; transform: translateY(36px); }
   to   { opacity: 1; transform: none; }
 }
-.ph-block .orb { width: 44px; height: 44px; margin-bottom: 4px; }
+.ph-mark {
+  width: 42px; height: 42px;
+  margin-bottom: 6px;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  color: #fff;
+  background: var(--grad);
+  border-radius: 13px;
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35);
+}
 .ph-block strong { font-size: 14.5px; font-weight: 800; }
 .ph-block span { font-size: 11.5px; color: var(--text-faint); font-weight: 600; }
 
@@ -1000,29 +922,42 @@ details[open] summary::after { transform: rotate(45deg); }
 .faq-body { overflow: hidden; }
 .faq-body p { color: var(--text-dim); font-size: 14.5px; margin: 0; padding-bottom: 18px; }
 
-/* ====================== From the maker ====================== */
+/* ====================== Why not the others ====================== */
 
-.maker-card {
-  display: flex;
-  gap: clamp(24px, 4vw, 44px);
-  align-items: flex-start;
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 44px;
+}
+.why-card {
   background: var(--bg-card);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
+  padding: 28px 26px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.why-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.why-card h3 { font-size: 17px; font-weight: 800; margin-bottom: 10px; }
+.why-card p { font-size: 14px; color: var(--text-dim); margin: 0; }
+
+/* ====================== Free forever ====================== */
+
+.free-card {
+  background: var(--bg-card);
+  border: 1.5px solid rgba(14, 165, 160, 0.4);
+  border-radius: var(--radius);
+  box-shadow: 0 18px 50px rgba(14, 165, 160, 0.1);
   padding: clamp(28px, 5vw, 48px);
-  max-width: 860px;
+  max-width: 760px;
   margin: 0 auto;
+  text-align: center;
 }
-.maker-orb { width: 74px; height: 74px; flex: none; }
-.maker-copy h2 { text-align: left; font-size: clamp(23px, 3vw, 31px); margin-bottom: 14px; }
-.maker-copy p { color: var(--text-dim); margin: 0 0 14px; max-width: 62ch; }
-.maker-copy .btn { margin-top: 6px; }
-.maker-copy .cta-note { margin-top: 12px; }
-@media (max-width: 640px) {
-  .maker-card { flex-direction: column; align-items: center; text-align: center; }
-  .maker-copy h2 { text-align: center; }
-}
+.free-card h2 { font-size: clamp(24px, 3.2vw, 34px); margin-bottom: 16px; }
+.free-card p { color: var(--text-dim); margin: 0 auto 14px; max-width: 58ch; }
+.free-card .btn { margin-top: 8px; }
+.free-card .cta-note { margin-top: 12px; }
 
 /* ====================== Final CTA ====================== */
 
@@ -1041,17 +976,16 @@ details[open] summary::after { transform: rotate(45deg); }
 .footer p { color: var(--text-dim); font-size: 14px; margin: 12px 0 0; }
 .footer .fine { color: var(--text-faint); font-size: 12.5px; }
 
-/* ====================== Motion preferences ====================== */
+/* ====================== Calm mode (?noanim or no GSAP) ====================== */
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .reveal { opacity: 1; transform: none; transition: none; }
-  .aurora, .orb, .eye, .nori-orb, .float-chip, .ph-feed, .av-eye,
-  .av-tassel, .av-head, .av-arm, .av-flag { animation: none !important; }
-  .av-phone { animation: none !important; opacity: 1; }
-  .show.visible .ph-block,
-  .show.visible .msg, .show.visible .reelcard,
-  .show.visible .ig-row, .show.visible .ig-lock,
-  .show.visible .yt-type { animation: none !important; opacity: 1; width: auto; }
-  .nori { display: none; }
+html.no-anim { scroll-behavior: auto; }
+html.no-anim .reveal { opacity: 1; transform: none; transition: none; }
+html.no-anim .aurora, html.no-anim .float-chip, html.no-anim .ph-feed,
+html.no-anim .av-eye, html.no-anim .av-tassel, html.no-anim .av-head,
+html.no-anim .av-arm, html.no-anim .av-flag { animation: none !important; }
+html.no-anim .av-phone { animation: none !important; opacity: 1; }
+html.no-anim .show .ph-block, html.no-anim .show .msg,
+html.no-anim .show .reelcard, html.no-anim .show .ig-row,
+html.no-anim .show .ig-lock, html.no-anim .show .yt-type {
+  animation: none !important; opacity: 1; width: auto;
 }

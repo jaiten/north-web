@@ -18,13 +18,16 @@
       position: relative;
       z-index: 1;
     }
-    .goodbye .orb {
-      width: 64px; height: 64px;
+    .goodbye .mark {
+      width: 60px; height: 60px;
       margin: 0 auto 20px;
-      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 26px;
+      color: #fff;
+      border-radius: 18px;
       background: var(--grad);
-      opacity: 0.6;
-      animation: breathe 4.5s ease-in-out infinite;
+      opacity: 0.85;
     }
     .goodbye h1 { font-size: clamp(28px, 4vw, 38px); margin-bottom: 16px; }
     .goodbye .open-list {
@@ -43,8 +46,8 @@
 <body>
   <div class="aurora" aria-hidden="true"></div>
   <main class="goodbye">
-    <div class="orb"><div class="eyes"><span class="eye"></span><span class="eye"></span></div></div>
-    <h1>Nori says goodbye. no hard feelings.</h1>
+    <div class="mark">▲</div>
+    <h1>goodbye. no hard feelings.</h1>
     <p class="lede" style="margin:0 auto 10px">North is uninstalled. that was your call to make, and it was always going to be one click. before you go, just so it's a decision and not an accident:</p>
 
     <ul class="open-list">
