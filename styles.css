@@ -388,8 +388,15 @@ html.no-anim #problem .pw { opacity: 1; }
 }
 .stack-frame.active { opacity: 1; transform: none; pointer-events: auto; }
 .stack-frame.passed { transform: translateY(-46px) scale(0.985); }
-/* GSAP drives the frames directly: transitions off, scrub takes over */
-.stack.gsap .stack-frame { transition: none; }
+/* GSAP drives the frames directly: transitions off, scrub takes over. The
+   frames fill the held viewport and center their own content, since absolute
+   children ignore the pin's flex alignment. */
+.stack.gsap .stack-frame {
+  transition: none;
+  top: 0; bottom: 0;
+  margin-top: 0;
+  align-content: center;
+}
 .stack.gsap .stack-frame.visible { pointer-events: auto; }
 .stack-dots {
   position: absolute;
@@ -406,8 +413,11 @@ html.no-anim #problem .pw { opacity: 1; }
   transition: all 0.35s ease;
 }
 .stack-dots i.on { background: var(--accent); width: 26px; }
-/* Small screens and reduced motion: a normal scrolling list, no pinning */
-@media (max-width: 820px), (prefers-reduced-motion: reduce) {
+/* Small screens: a normal scrolling list, no pinning. Reduced-motion is NOT
+   gated here on purpose: this machine reports it falsely and the scroll engine
+   ignores it, so gating the layout would desync the pin from the animation.
+   The ?noanim opt-out collapses the stack via html.no-anim instead. */
+@media (max-width: 820px) {
   .stack { height: auto; }
   .stack-pin { position: static; height: auto; min-height: 0; display: block; }
   .stack-frame {
@@ -992,3 +1002,13 @@ html.no-anim .show .reelcard, html.no-anim .show .ig-row,
 html.no-anim .show .ig-lock, html.no-anim .show .yt-type {
   animation: none !important; opacity: 1; width: auto;
 }
+/* With the scroll engine off, the pinned stack becomes a normal scrolling list
+   (on wide screens too, where the media query above no longer collapses it). */
+html.no-anim .stack { height: auto; }
+html.no-anim .stack-pin { position: static; height: auto; min-height: 0; display: block; }
+html.no-anim .stack-frame {
+  position: static; opacity: 1; transform: none; pointer-events: auto;
+  top: auto; bottom: auto; align-content: normal;
+  margin-top: clamp(48px, 8vh, 84px);
+}
+html.no-anim .stack-dots { display: none; }
