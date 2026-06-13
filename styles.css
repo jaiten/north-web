@@ -196,6 +196,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
   color: var(--text); text-decoration: none;
 }
 .nav-logo img { border-radius: 10px; }
+
+/* Brand mark: the North arrow, white inside its gradient tile. Scales to its
+   tile (mock-mark, ph-mark, goodbye .mark) via %. */
+.north-arrow { width: 54%; height: 54%; fill: currentColor; }
 .nav-links { display: flex; gap: 26px; }
 .nav-links a {
   color: var(--text-dim);
