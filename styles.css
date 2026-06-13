@@ -476,6 +476,9 @@ html.no-anim #problem .pw { opacity: 1; }
 }
 .ph-block {
   position: absolute; inset: 0;
+  /* backdrop-filter ignores the screen's overflow clip, so the frost must
+     round its own corners or they poke square past the phone's bezel. */
+  border-radius: inherit;
   background: var(--frost);
   backdrop-filter: blur(7px);
   display: flex;
