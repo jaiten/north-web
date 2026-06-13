@@ -16,7 +16,14 @@
   <meta property="og:title" content="suggest a feature for North">
   <meta property="og:description" content="Tell North what to build next. No account needed.">
 
-  <script>document.documentElement.dataset.theme = localStorage.getItem("north-theme") || "light";</script>
+  <script>
+    // first paint, flash-free: mirrors theme.js (auto = light by day, dark after sunset)
+    (function () {
+      var s = localStorage.getItem("north-theme"), h = new Date().getHours();
+      document.documentElement.dataset.theme =
+        (s === "light" || s === "dark") ? s : (h >= 19 || h < 7 ? "dark" : "light");
+    })();
+  </script>
 
   <!-- ===== Connect the box: create a free form at https://formspree.io, set its
        notification email to your own inbox, then paste the form id (the part
@@ -152,6 +159,7 @@
     </div>
   </footer>
 
+  <script src="theme.js" defer></script>
   <script src="suggest.js" defer></script>
 </body>
 </html>

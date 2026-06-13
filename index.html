@@ -87,7 +87,14 @@
   </script>
 
   <!-- Apply the saved theme before first paint to avoid a flash -->
-  <script>document.documentElement.dataset.theme = localStorage.getItem("north-theme") || "light";</script>
+  <script>
+    // first paint, flash-free: mirrors theme.js (auto = light by day, dark after sunset)
+    (function () {
+      var s = localStorage.getItem("north-theme"), h = new Date().getHours();
+      document.documentElement.dataset.theme =
+        (s === "light" || s === "dark") ? s : (h >= 19 || h < 7 ? "dark" : "light");
+    })();
+  </script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -493,6 +500,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
+  <script src="theme.js" defer></script>
   <script src="script.js" defer></script>
 </body>
 </html>

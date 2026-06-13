@@ -9,15 +9,8 @@ const animated = hasGsap && !noAnim;
 
 if (!animated) document.documentElement.classList.add("no-anim");
 
-// ---------------------------------------------------------------------------
-// Theme toggle
-// ---------------------------------------------------------------------------
-
-document.getElementById("btn-theme").addEventListener("click", () => {
-  const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-  document.documentElement.dataset.theme = next;
-  try { localStorage.setItem("north-theme", next); } catch { /* private mode */ }
-});
+// Theme (auto sunset/sunrise + the toggle) lives in theme.js, shared by every
+// page.
 
 // ---------------------------------------------------------------------------
 // Nav: deeper shadow once you leave the top

@@ -7,7 +7,14 @@
   <meta name="description" content="North has been uninstalled. Here's what just got unblocked, and how to come back if you change your mind.">
   <meta name="robots" content="noindex">
   <link rel="icon" type="image/png" href="assets/favicon.png">
-  <script>document.documentElement.dataset.theme = localStorage.getItem("north-theme") || "light";</script>
+  <script>
+    // first paint, flash-free: mirrors theme.js (auto = light by day, dark after sunset)
+    (function () {
+      var s = localStorage.getItem("north-theme"), h = new Date().getHours();
+      document.documentElement.dataset.theme =
+        (s === "light" || s === "dark") ? s : (h >= 19 || h < 7 ? "dark" : "light");
+    })();
+  </script>
   <link rel="stylesheet" href="styles.css">
   <style>
     .goodbye {
@@ -63,5 +70,6 @@
       <a href="suggest.html?from=uninstall">tell me why you left</a>
     </div>
   </main>
+  <script src="theme.js" defer></script>
 </body>
 </html>

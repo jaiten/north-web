@@ -1,12 +1,7 @@
-// North suggestion box — theme toggle + Formspree AJAX submit.
+// North suggestion box — Formspree AJAX submit.
 // Lives on northfocus.app/suggest.html. Submissions are stored by Formspree and
 // emailed to the form owner; the address never appears in this page's source.
-
-document.getElementById("btn-theme").addEventListener("click", () => {
-  const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-  document.documentElement.dataset.theme = next;
-  try { localStorage.setItem("north-theme", next); } catch { /* private mode */ }
-});
+// (Theme: auto sunset/sunrise + the toggle live in the shared theme.js.)
 
 const form = document.getElementById("suggest-form");
 const messageEl = document.getElementById("message");
