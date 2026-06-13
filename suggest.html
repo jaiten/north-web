@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>suggest a feature for North</title>
+  <meta name="description" content="Tell North what to build next. A quick suggestion box for the free-forever focus extension. No account needed.">
+  <link rel="canonical" href="https://northfocus.app/suggest.html">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+
+  <link rel="preconnect" href="https://fonts.bunny.net">
+  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=plus-jakarta-sans:400,600,700,800&display=swap">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://northfocus.app/suggest.html">
+  <meta property="og:title" content="suggest a feature for North">
+  <meta property="og:description" content="Tell North what to build next. No account needed.">
+
+  <script>document.documentElement.dataset.theme = localStorage.getItem("north-theme") || "light";</script>
+
+  <!-- ===== Connect the box: create a free form at https://formspree.io, set its
+       notification email to your own inbox, then paste the form id (the part
+       after /f/ in the endpoint) below. Submissions then email you; the address
+       itself is kept out of this page's source on purpose. ===== -->
+  <script>window.FORMSPREE_ID = "YOUR_FORM_ID";</script>
+
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .suggest { position: relative; z-index: 1; max-width: 620px; margin: 0 auto;
+      padding: clamp(24px, 6vh, 56px) clamp(20px, 5vw, 28px) 70px; }
+    .suggest h1 { font-size: clamp(28px, 5vw, 40px); font-weight: 800; }
+    .suggest .lede { color: var(--text-dim); margin: 14px 0 0; }
+    .suggest .card {
+      margin-top: 30px;
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(22px, 4vw, 34px);
+    }
+    .suggest .field { margin-bottom: 20px; }
+    .suggest .field:last-of-type { margin-bottom: 0; }
+    .suggest label { display: block; font-weight: 700; font-size: 14px; margin-bottom: 8px; }
+    .suggest label .opt { color: var(--text-faint); font-weight: 600; }
+    .suggest textarea, .suggest input[type="email"], .suggest select {
+      width: 100%; font: inherit; font-size: 15px; color: var(--text);
+      background: var(--bg-inset); border: 1px solid var(--line);
+      border-radius: 13px; padding: 12px 14px; transition: border-color 0.15s;
+    }
+    .suggest textarea { resize: vertical; min-height: 130px; line-height: 1.55; }
+    .suggest textarea:focus, .suggest input:focus, .suggest select:focus { border-color: var(--accent); outline: none; }
+    .suggest .field-meta { display: flex; justify-content: space-between; gap: 10px;
+      margin-top: 8px; font-size: 12.5px; color: var(--text-faint); }
+    .suggest .count.done { color: var(--ok); font-weight: 700; }
+    .suggest .gotcha { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .suggest .actions { margin-top: 24px; }
+    .suggest .note { color: var(--text-faint); font-size: 13px; margin: 14px 0 0; }
+    .suggest .result { margin-top: 18px; padding: 14px 16px; border-radius: 13px;
+      font-size: 14.5px; font-weight: 600; }
+    .suggest .result.ok { background: rgba(16, 185, 129, 0.12); color: var(--ok); }
+    .suggest .result.err { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+    .suggest .config-warn { margin-top: 18px; padding: 12px 16px; border-radius: 13px;
+      background: rgba(245, 158, 11, 0.14); color: #b45309; font-size: 13.5px; }
+    :root[data-theme="dark"] .suggest .config-warn { color: #fbbf24; }
+    .suggest .thanks { text-align: center; padding: 18px 0; }
+    .suggest .thanks .mark { width: 56px; height: 56px; margin: 0 auto 18px;
+      display: grid; place-items: center; border-radius: 17px; background: var(--grad);
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35); }
+    .suggest .thanks .mark svg { width: 54%; height: 54%; fill: #fff; }
+    .suggest .thanks h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .suggest .thanks p { color: var(--text-dim); margin: 0 0 18px; }
+    .suggest .link-btn { background: none; border: none; color: var(--accent-deep);
+      font: inherit; font-weight: 700; cursor: pointer; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/icon128.png" alt="North logo" width="34" height="34">
+      <span>North</span>
+    </a>
+    <div class="nav-right">
+      <button class="theme-btn" id="btn-theme" aria-label="Switch between light and dark theme">
+        <svg class="ico-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ico-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5 5l1.8 1.8M17.2 17.2L19 19M19 5l-1.8 1.8M6.8 17.2L5 19"/></svg>
+      </button>
+      <a class="btn primary" href="index.html#install">add to browser</a>
+    </div>
+  </header>
+
+  <main class="suggest">
+    <p class="eyebrow">suggestion box</p>
+    <h1>what should North do next?</h1>
+    <p class="lede">a feature you wish it had, a site that needs better handling, a rough edge that bugs you. North is free for life and built in the open, so the roadmap is mostly just this box. say it plainly.</p>
+
+    <div class="card">
+      <form id="suggest-form" novalidate>
+        <input class="gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <div class="field">
+          <label for="kind">what kind of thing is this? <span class="opt">(optional)</span></label>
+          <select id="kind" name="kind">
+            <option value="a feature idea">a feature idea</option>
+            <option value="a bug or something broken">a bug, or something broken</option>
+            <option value="a site that needs better handling">a site that needs better handling</option>
+            <option value="why i uninstalled">why i uninstalled</option>
+            <option value="something else">something else</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="message">your suggestion</label>
+          <textarea id="message" name="message" required
+            placeholder="the more specific, the better. what would it do, and when would you reach for it?"></textarea>
+          <div class="field-meta">
+            <span class="count" id="count">0 words</span>
+            <span>no account, no sign-in. just the idea.</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email">your email <span class="opt">(optional, only if you want a reply)</span></label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com">
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" type="submit" id="submit-btn">send it</button>
+        </div>
+
+        <div class="result hidden" id="result"></div>
+        <div class="config-warn hidden" id="config-warn">
+          heads up: this box isn't connected yet. set <code>FORMSPREE_ID</code> in suggest.html.
+        </div>
+
+        <p class="note">this goes straight to the person who builds North. it isn't public, and nothing else about you is collected.</p>
+      </form>
+
+      <div class="thanks hidden" id="thanks">
+        <div class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 19 20.5 12 17 5 20.5Z"/></svg></div>
+        <h2>got it. thank you.</h2>
+        <p>your idea landed. if you left an email, you might hear back.</p>
+        <button class="link-btn" id="another">send another</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p><a href="index.html">back to northfocus.app</a> · free for life</p>
+    </div>
+  </footer>
+
+  <script src="suggest.js" defer></script>
+</body>
+</html>
