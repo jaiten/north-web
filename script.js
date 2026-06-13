@@ -117,7 +117,7 @@ if (animated) {
   if (stack && matchMedia("(min-width: 821px)").matches) {
     stack.classList.add("gsap");
     const frames = gsap.utils.toArray(".stack-frame");
-    const dots = [...stack.querySelectorAll(".stack-dots i")];
+    const dots = [...stack.querySelectorAll(".stack-dots .dot")];
 
     const setScene = idx => {
       frames.forEach((f, i) => f.classList.toggle("visible", i === idx));
@@ -158,6 +158,17 @@ if (animated) {
       end: "bottom bottom",
       snap: { snapTo: snapPoints, duration: { min: 0.25, max: 0.7 }, delay: 0.08, ease: "power2.inOut" }
     });
+
+    // Clicking a dot rides the same smooth scroll to that scene's resting point,
+    // so the buttons and the wheel land on exactly the same spots.
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => {
+        const st = tl.scrollTrigger;
+        const y = st.start + snapPoints[i] * (st.end - st.start);
+        if (lenis) lenis.scrollTo(y, { duration: 0.7 });
+        else window.scrollTo({ top: y, behavior: "smooth" });
+      });
+    });
   } else if (stack) {
     // Small screens: frames flow normally and play their vignette on arrival.
     const io = new IntersectionObserver(entries => {
@@ -174,7 +185,7 @@ if (animated) {
     onEnter: batch => batch.forEach(el => el.classList.add("visible"))
   });
 
-  for (const sel of ["#more-grid .more", "#why-grid .why-card", "#steps .step", "#who-grid .who-card"]) {
+  for (const sel of ["#more-grid .more", "#why-grid .why-card", "#who-grid .who-card"]) {
     const items = gsap.utils.toArray(sel);
     if (!items.length) continue;
     gsap.from(items, {
@@ -203,7 +214,7 @@ if (animated) {
   const stack = document.getElementById("feature-stack");
   if (stack) {
     const frames = [...stack.querySelectorAll(".stack-frame")];
-    const dots = [...stack.querySelectorAll(".stack-dots i")];
+    const dots = [...stack.querySelectorAll(".stack-dots .dot")];
     if (matchMedia("(min-width: 821px)").matches && !noAnim) {
       let cur = -1;
       const update = () => {
@@ -281,63 +292,3 @@ document.querySelectorAll(".faq-list details").forEach(d => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Interactive demo: the unlock journal, exactly like the real thing
-// ---------------------------------------------------------------------------
-
-const demoInput = document.getElementById("demo-input");
-const demoCount = document.getElementById("demo-count");
-const demoBtn = document.getElementById("demo-btn");
-const demoResult = document.getElementById("demo-result");
-const MIN_WORDS = 20;
-
-// Same bar the extension sets: enough words, mostly distinct, not key mash.
-function demoWords(note) {
-  return String(note || "").toLowerCase().split(/\s+/).filter(w => /[a-z]/i.test(w));
-}
-function demoNoteOk(note) {
-  const words = demoWords(note);
-  if (words.length < MIN_WORDS) return false;
-  if (new Set(words).size < MIN_WORDS / 2) return false;
-  const withVowels = words.filter(w => /[aeiouy]/i.test(w)).length;
-  return withVowels >= words.length * 0.7;
-}
-
-function showResult(text) {
-  demoResult.textContent = text;
-  demoResult.classList.remove("hidden");
-}
-
-if (demoInput) {
-  demoInput.addEventListener("input", () => {
-    demoResult.classList.add("hidden");
-    const ok = demoNoteOk(demoInput.value);
-    const n = demoWords(demoInput.value).length;
-    demoCount.textContent = ok ? `${n} words ✓`
-      : n >= MIN_WORDS ? `${n} words, make them real ones`
-      : `${n} / ${MIN_WORDS} words`;
-    demoCount.classList.toggle("done", ok);
-    demoBtn.classList.toggle("ready", ok);
-  });
-
-  // The real thing blocks pasting too.
-  demoInput.addEventListener("paste", e => {
-    e.preventDefault();
-    showResult("nice try. the real thing blocks pasting too. you have to mean it.");
-  });
-
-  demoBtn.addEventListener("click", () => {
-    if (demoNoteOk(demoInput.value)) {
-      showResult("that took maybe forty seconds of honesty. now imagine paying that price every single time you reach for the feed. that's North.");
-      demoInput.value = "";
-      demoCount.textContent = `0 / ${MIN_WORDS} words`;
-      demoCount.classList.remove("done");
-      demoBtn.classList.remove("ready");
-    } else {
-      const n = demoWords(demoInput.value).length;
-      showResult(n < MIN_WORDS
-        ? `that's ${n} word${n === 1 ? "" : "s"}. the deal is ${MIN_WORDS} honest ones. keep going.`
-        : "that doesn't read like a real reason yet. write it like you'd explain it to a friend.");
-    }
-  });
-}

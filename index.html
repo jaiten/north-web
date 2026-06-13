@@ -100,7 +100,7 @@
     </a>
     <nav class="nav-links">
       <a href="#features">features</a>
-      <a href="#demo">try it</a>
+      <a href="#who">who it's for</a>
       <a href="#free">free forever</a>
       <a href="#faq">faq</a>
     </nav>
@@ -268,7 +268,12 @@
         </div>
       </div>
 
-          <div class="stack-dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+          <div class="stack-dots" id="stack-dots">
+            <button type="button" class="dot on" aria-label="show: short videos, gone"></button>
+            <button type="button" class="dot" aria-label="show: the reel a friend sent"></button>
+            <button type="button" class="dot" aria-label="show: messages only"></button>
+            <button type="button" class="dot" aria-label="show: youtube on your terms"></button>
+          </div>
         </div>
       </div>
 
@@ -309,21 +314,6 @@
       </div>
     </section>
 
-    <!-- ============ Interactive demo: the journal ============ -->
-    <section class="section demo" id="demo">
-      <h2 class="reveal">try the honest moment.</h2>
-      <p class="section-sub reveal">unlocking a blocked site in North costs 20 honest words to future you. see how it feels.</p>
-      <div class="demo-box reveal">
-        <p class="demo-label">why do you need the site right now? what will you do there, and when will you leave?</p>
-        <textarea id="demo-input" rows="3" placeholder="be honest. this is the actual unlock: twenty real words, no pasting, no keyboard mash." autocomplete="off"></textarea>
-        <div class="demo-meta">
-          <span id="demo-count">0 / 20 words</span>
-          <button class="btn primary small" id="demo-btn">unlock</button>
-        </div>
-        <p class="demo-result hidden" id="demo-result"></p>
-      </div>
-    </section>
-
     <!-- ============ Why not the others ============ -->
     <section class="section" id="why">
       <h2 class="reveal">you've probably tried a blocker before.</h2>
@@ -344,31 +334,10 @@
       </div>
     </section>
 
-    <!-- ============ How it works ============ -->
-    <section class="section" id="how">
-      <h2 class="reveal">three minutes to set up. months of hours back.</h2>
-      <div class="steps" id="steps">
-        <div class="step">
-          <span class="step-num">1</span>
-          <h3>install North</h3>
-          <p>add it to your browser. the settings page opens and nothing is blocked until you choose it.</p>
-        </div>
-        <div class="step">
-          <span class="step-num">2</span>
-          <h3>pick your protections</h3>
-          <p>block short videos, choose your sites, set schedules and budgets, add the keywords you can't unsee.</p>
-        </div>
-        <div class="step">
-          <span class="step-num">3</span>
-          <h3>North holds the line</h3>
-          <p>every blocked visit is a small win, counted and shown. changing your mind takes a wait and 20 honest words.</p>
-        </div>
-      </div>
-    </section>
-
     <!-- ============ Who it's for ============ -->
     <section class="section" id="who">
-      <h2 class="reveal">built for the moment your thumb moves on its own.</h2>
+      <h2 class="reveal">built for the moment you open a new tab on autopilot.</h2>
+      <p class="section-sub reveal">it's a browser extension, so it lives where the work does, on your laptop. whatever pulls you off task, one feature carries most of the weight for you.</p>
       <div class="who-grid" id="who-grid">
         <article class="who-card">
           <svg class="avatar" viewBox="0 0 120 120" aria-hidden="true">
@@ -385,7 +354,8 @@
             </g>
           </svg>
           <h3>students</h3>
-          <p>exam season and a TikTok habit don't mix. feeds blocked during study hours, the group chat untouched.</p>
+          <span class="who-feature"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v3"/></svg>lockdown mode</span>
+          <p>exam week, one job. flip on lockdown and only your notes and the school portal load. everything else goes dark, with no off switch until the timer runs out.</p>
         </article>
         <article class="who-card">
           <svg class="avatar" viewBox="0 0 120 120" aria-hidden="true">
@@ -404,7 +374,8 @@
             <rect x="40" y="94" width="40" height="12" rx="3" fill="#374061"/>
           </svg>
           <h3>deep workers</h3>
-          <p>one focus session seals everything until it ends. the "quick check" that costs 40 minutes stops happening.</p>
+          <span class="who-feature"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2"/></svg>focus sessions</span>
+          <p>start a focus session and the whole web that isn't your work seals shut until it ends. the "quick check" that eats forty minutes stops being an option.</p>
         </article>
         <article class="who-card">
           <svg class="avatar" viewBox="0 0 120 120" aria-hidden="true">
@@ -423,8 +394,9 @@
               <path d="M84 24l-5-3M86 34l-6 1" stroke="#9094b4" stroke-width="2" stroke-linecap="round"/>
             </g>
           </svg>
-          <h3>anyone quitting short videos</h3>
-          <p>reels and shorts never end, so North ends them. the one a friend sends still plays. wave the rest goodbye.</p>
+          <h3>quitting short videos</h3>
+          <span class="who-feature"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/><path d="M10 8.5l5 3.5-5 3.5z"/></svg>shorts, gone</span>
+          <p>Shorts, Reels and TikTok are blocked as a category: hidden in feeds, dead by URL, never unlockable. the one a friend sends still plays. the rest just ends.</p>
         </article>
         <article class="who-card">
           <svg class="avatar" viewBox="0 0 120 120" aria-hidden="true">
@@ -438,8 +410,9 @@
             <path d="M92 96V40" stroke="#374061" stroke-width="3" stroke-linecap="round"/>
             <g class="av-flag"><path d="M92 40h-22l6 8-6 8h22z" fill="#2dd4bf"/></g>
           </svg>
-          <h3>people who've tried blockers</h3>
-          <p>you turned the last one off in a weak moment. North makes that moment slow, present and honest. this time it holds.</p>
+          <h3>tried blockers before</h3>
+          <span class="who-feature"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 4v13a3 3 0 0 0 3 3"/><path d="M10 9h6M10 13h4"/></svg>the unlock wait</span>
+          <p>you turned the last one off in a weak moment. North makes that moment cost a breathing timer and 20 honest words. slow, present, hard to fake. this time it holds.</p>
         </article>
       </div>
     </section>
@@ -453,11 +426,6 @@
         <a class="btn primary" href="https://ko-fi.com/jaiten" target="_blank" rel="noopener">♥ leave a tip</a>
         <p class="cta-note">one-time, any amount, no account needed. the tip jar is the entire business model.</p>
       </div>
-    </section>
-
-    <!-- ============ Privacy ============ -->
-    <section class="strip">
-      <p class="reveal"><strong>the honest fine print:</strong> North has no accounts, no servers and no tracking. your settings and stats live in your browser and nowhere else. and yes, you can always uninstall it. North's job is to interrupt habit, not to imprison you.</p>
     </section>
 
     <!-- ============ FAQ ============ -->
