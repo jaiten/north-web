@@ -32,4 +32,5 @@ All data (settings, usage stats, journal entries) is stored locally in the brows
 ## Links
 
 - Website: https://northfocus.app/
-- Feature requests: jaitenkangis@gmail.com
+- Suggestion box / feature requests: https://suggest.northfocus.app/
+- Direct email: jaitenkangis@gmail.com
