@@ -731,17 +731,18 @@ html.no-anim #problem .pw { opacity: 1; }
   margin-bottom: 14px;
 }
 .yt-type {
+  display: inline-block;
   overflow: hidden;
   white-space: nowrap;
   width: 0;
 }
 .show.visible .yt-type { animation: type-in 1s steps(5) 0.3s both; }
-@keyframes type-in { from { width: 0; } to { width: 5ch; } }
+@keyframes type-in { from { width: 0; } to { width: 4.45ch; } }
 .yt-caret {
   width: 2px; height: 17px;
   background: var(--accent);
   flex: none;
-  margin-left: 1px;
+  margin-left: 0;
   animation: caret 1s steps(1) infinite;
 }
 @keyframes caret { 50% { opacity: 0; } }
@@ -991,7 +992,7 @@ html.no-anim #problem .pw { opacity: 1; }
 
 .avatar {
   width: 96px; height: 96px;
-  animation: bob 5.5s ease-in-out infinite;
+  animation: avatar-float 5.8s ease-in-out infinite;
   filter: drop-shadow(0 10px 18px rgba(99, 102, 241, 0.16));
   clip-path: circle(46.5% at 50% 50%);
   overflow: hidden;
@@ -1002,8 +1003,6 @@ html.no-anim #problem .pw { opacity: 1; }
 .avatar g {
   transform-box: fill-box;
 }
-.avatar > path:first-of-type { transform: translateY(8px) scale(0.82); transform-origin: center bottom; }
-.avatar > rect { transform: translateY(6px) scaleX(0.86); transform-origin: center; }
 .avatar .av-arm,
 .avatar .av-phone,
 .avatar .av-flag {
@@ -1017,54 +1016,20 @@ html.no-anim #problem .pw { opacity: 1; }
 .who-card:nth-child(3) .av-eye { animation-delay: 2.3s; }
 .who-card:nth-child(4) .av-eye { animation-delay: 3.4s; }
 
-/* Each character is alive on its own: tassel swings, worker nods along,
-   the quitter waves their phone goodbye, the flag flutters. */
-.av-tassel {
-  transform-box: fill-box;
-  transform-origin: top center;
-  animation: tassel-swing 3.2s ease-in-out infinite;
+/* Portraits move as one piece; sub-parts stay attached so heads, arms and
+   flags don't float away from the character. */
+@keyframes avatar-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(-1.2deg); }
 }
-@keyframes tassel-swing {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(12deg); }
-}
-.av-head {
-  transform-box: fill-box;
-  transform-origin: center bottom;
-  animation: head-nod 2.4s ease-in-out infinite;
-}
-@keyframes head-nod {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(2px); }
-}
-.av-arm {
-  transform-box: fill-box;
-  transform-origin: 15% 85%;
-  animation: wave 3.6s ease-in-out infinite;
-}
-@keyframes wave {
-  0%, 40%, 90%, 100% { transform: rotate(0deg); }
-  55% { transform: rotate(-22deg); }
-  65% { transform: rotate(6deg); }
-  75% { transform: rotate(-14deg); }
-}
-.av-phone {
-  animation: phone-away 3.6s ease-in-out infinite;
-}
-@keyframes phone-away {
-  0%, 35% { opacity: 0; transform: translate(-5px, 5px); }
-  55% { opacity: 1; transform: translate(0, 0); }
-  100% { opacity: 0; transform: translate(9px, -12px); }
-}
+.av-tassel,
+.av-head,
+.av-arm,
+.av-phone,
 .av-flag {
-  transform-box: fill-box;
-  transform-origin: right center;
-  animation: flag-flutter 2.4s ease-in-out infinite;
+  animation: none;
 }
-@keyframes flag-flutter {
-  0%, 100% { transform: skewY(0deg); }
-  50% { transform: skewY(-7deg); }
-}
+.av-phone { opacity: 1; }
 
 /* ====================== FAQ ====================== */
 

@@ -82,12 +82,13 @@ if (animated) {
       .from("#hero-mock", { y: 60, opacity: 0, duration: 1, ease: "power2.out" }, 0.5)
       .from(".float-chip", { scale: 0.6, opacity: 0, duration: 0.6, ease: "back.out(2)", stagger: 0.15 }, 1.0);
 
-    // Gentle parallax: the mock drifts as the hero scrolls away.
-    gsap.to("#hero-mock", {
-      y: 90,
-      ease: "none",
-      scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.6 }
-    });
+    // The mock follows the scroll briefly, then exits down and right instead
+    // of snapping into the next section.
+    gsap.timeline({
+      scrollTrigger: { trigger: ".hero", start: "top 70px", end: "bottom top", scrub: 0.45 }
+    })
+      .to("#hero-mock", { y: 80, x: 30, rotate: 4, ease: "none", duration: 0.3 })
+      .to("#hero-mock", { y: 500, x: 200, rotate: 9, autoAlpha: 0, ease: "none", duration: 0.7 });
   }
 
   // --- The problem: words light up as you scroll --------------------------
@@ -152,7 +153,7 @@ if (animated) {
       if (i === 3) {
         tl.set(q(".yt-type"), { width: "0ch" }, 0)
           .set(q(".yt-tile.cut"), { autoAlpha: 1, filter: "grayscale(0)", scale: 1 }, 0)
-          .to(q(".yt-type"), { width: "5ch", duration: 0.42 }, 0.08)
+          .to(q(".yt-type"), { width: "4.45ch", duration: 0.42 }, 0.08)
           .to(q(".yt-tile.cut"), { autoAlpha: 0.16, filter: "grayscale(1)", scale: 0.94, duration: 0.28, stagger: 0.04, ease: "power1.out" }, 0.58);
       }
 
