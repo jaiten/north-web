@@ -439,8 +439,7 @@ html.no-anim #problem .pw { opacity: 1; }
   transition: none;
   top: 0; bottom: 0;
   margin-top: 0;
-  align-content: start;
-  padding-top: clamp(24px, 7vh, 72px);
+  align-content: center;
 }
 .stack.gsap .stack-frame.visible { pointer-events: auto; }
 .stack.gsap .ph-feed,
