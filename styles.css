@@ -367,7 +367,12 @@ main { position: relative; z-index: 1; }
 .strip strong { color: var(--text); }
 
 /* The problem statement gets bigger and lights up word by word on scroll */
-#problem { max-width: 820px; padding-top: clamp(40px, 10vh, 90px); padding-bottom: clamp(40px, 10vh, 90px); }
+#problem {
+  max-width: 820px;
+  padding-top: clamp(40px, 10vh, 90px);
+  padding-bottom: clamp(12px, 3vh, 30px);
+  margin-bottom: 0;
+}
 #problem p { font-size: clamp(21px, 3vw, 31px); font-weight: 700; color: var(--text); line-height: 1.5; }
 #problem .pw { opacity: 0.16; }
 html.no-anim #problem .pw { opacity: 1; }
@@ -378,6 +383,10 @@ html.no-anim #problem .pw { opacity: 1; }
   max-width: 1180px;
   margin: 0 auto;
   padding: clamp(50px, 9vh, 100px) clamp(20px, 5vw, 56px);
+}
+#features {
+  margin-top: clamp(10px, 2vh, 26px);
+  padding-top: 0;
 }
 .section h2 {
   font-size: clamp(28px, 3.6vw, 40px);
@@ -430,7 +439,8 @@ html.no-anim #problem .pw { opacity: 1; }
   transition: none;
   top: 0; bottom: 0;
   margin-top: 0;
-  align-content: center;
+  align-content: start;
+  padding-top: clamp(24px, 7vh, 72px);
 }
 .stack.gsap .stack-frame.visible { pointer-events: auto; }
 .stack.gsap .ph-feed,
@@ -501,6 +511,7 @@ html.no-anim #problem .pw { opacity: 1; }
 @media (max-width: 820px) {
   .show { grid-template-columns: 1fr; }
   .show.flip .show-viz { order: 0; }
+  #features .stack-frame:first-child { margin-top: 0; }
 }
 .show-copy .eyebrow { margin-bottom: 10px; }
 .show-copy h3 { font-size: clamp(23px, 2.6vw, 30px); font-weight: 800; margin-bottom: 12px; }
@@ -1149,4 +1160,5 @@ html.no-anim .stack-frame {
   top: auto; bottom: auto; align-content: normal;
   margin-top: clamp(48px, 8vh, 84px);
 }
+html.no-anim #features .stack-frame:first-child { margin-top: 0; }
 html.no-anim .stack-dots { display: none; }
