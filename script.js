@@ -104,7 +104,7 @@ if (animated) {
     });
   }
 
-  // --- Pinned feature stack: scroll scrubs through and locks onto scenes --
+  // --- Pinned feature stack: scroll scrubs through the scenes -------------
 
   const stack = document.getElementById("feature-stack");
   if (stack && matchMedia("(min-width: 821px)").matches) {
@@ -117,47 +117,106 @@ if (animated) {
       dots.forEach((d, i) => d.classList.toggle("on", i === idx));
     };
 
+    const popVars = { autoAlpha: 1, scale: 1, y: 0, duration: 0.16, ease: "power2.out" };
+    const sceneTimelines = frames.map((frame, i) => {
+      const q = gsap.utils.selector(frame);
+      const tl = gsap.timeline({ paused: true, defaults: { ease: "none" } });
+
+      if (i === 0) {
+        tl.set(q(".ph-feed"), { yPercent: 0 }, 0)
+          .set(q(".ph-block"), { autoAlpha: 0, y: 36 }, 0)
+          .to(q(".ph-feed"), { yPercent: -50, duration: 0.68 }, 0)
+          .to(q(".ph-block"), { autoAlpha: 1, y: 0, duration: 0.24, ease: "power2.out" }, 0.54);
+      }
+
+      if (i === 1) {
+        tl.set(q(".msg, .reelcard"), { autoAlpha: 0, scale: 0.75, y: 10 }, 0)
+          .set(q(".reel-timer i"), { width: "100%" }, 0)
+          .to(q(".m1"), popVars, 0.06)
+          .to(q(".m2"), popVars, 0.2)
+          .to(q(".m3"), popVars, 0.34)
+          .to(q(".m4"), { autoAlpha: 1, scale: 1, y: 0, duration: 0.18, ease: "power2.out" }, 0.5)
+          .to(q(".reel-timer i"), { width: "6%", duration: 0.42 }, 0.58);
+      }
+
+      if (i === 2) {
+        tl.set(q(".ig-row, .ig-lock"), { autoAlpha: 0, scale: 0.82, y: 10 }, 0)
+          .set(q(".ig-grid"), { filter: "grayscale(0) opacity(1)" }, 0)
+          .to(q(".ig-row:nth-child(1)"), popVars, 0.08)
+          .to(q(".ig-row:nth-child(2)"), popVars, 0.22)
+          .to(q(".ig-row:nth-child(3)"), popVars, 0.36)
+          .to(q(".ig-grid"), { filter: "grayscale(1) opacity(0.35)", duration: 0.24 }, 0.56)
+          .to(q(".ig-lock"), popVars, 0.72);
+      }
+
+      if (i === 3) {
+        tl.set(q(".yt-type"), { width: "0ch" }, 0)
+          .set(q(".yt-tile.cut"), { autoAlpha: 1, filter: "grayscale(0)", scale: 1 }, 0)
+          .to(q(".yt-type"), { width: "5ch", duration: 0.42 }, 0.08)
+          .to(q(".yt-tile.cut"), { autoAlpha: 0.16, filter: "grayscale(1)", scale: 0.94, duration: 0.28, stagger: 0.04, ease: "power1.out" }, 0.58);
+      }
+
+      if (i === 4) {
+        tl.set(q(".breath-ring.r1"), { scale: 0.88, autoAlpha: 0.58 }, 0)
+          .set(q(".breath-ring.r2"), { scale: 1.05, autoAlpha: 0.7 }, 0)
+          .set(q(".breath-dot"), { scale: 0.82 }, 0)
+          .set(q(".wait-bar i"), { width: "0%" }, 0)
+          .set(q(".focus-note, .journal"), { autoAlpha: 0, y: 10 }, 0)
+          .to(q(".breath-ring.r1"), { scale: 1.08, autoAlpha: 1, duration: 0.32, yoyo: true, repeat: 1, ease: "sine.inOut" }, 0.04)
+          .to(q(".breath-ring.r2"), { scale: 0.9, autoAlpha: 1, duration: 0.32, yoyo: true, repeat: 1, ease: "sine.inOut" }, 0.04)
+          .to(q(".breath-dot"), { scale: 1.12, duration: 0.32, yoyo: true, repeat: 1, ease: "sine.inOut" }, 0.04)
+          .to(q(".wait-bar i"), { width: "72%", duration: 0.76 }, 0.06)
+          .to(q(".focus-note"), { autoAlpha: 1, y: 0, duration: 0.16, ease: "power2.out" }, 0.36)
+          .to(q(".journal"), { autoAlpha: 1, y: 0, duration: 0.2, ease: "power2.out" }, 0.68);
+      }
+
+      tl.progress(0);
+      return tl;
+    });
+
+    const updateSceneProgress = progress => {
+      const raw = Math.min(frames.length - 0.001, Math.max(0, progress * frames.length));
+      const idx = Math.min(frames.length - 1, Math.floor(raw));
+      const local = idx === frames.length - 1 && progress >= 0.999 ? 1 : raw - idx;
+
+      setScene(idx);
+      sceneTimelines.forEach((timeline, i) => {
+        if (i < idx) timeline.progress(1);
+        else if (i > idx) timeline.progress(0);
+        else timeline.progress(local);
+      });
+    };
+
     gsap.set(frames[0], { autoAlpha: 1, y: 0, scale: 1 });
-    setScene(0);
+    updateSceneProgress(0);
 
-    // Timeline layout: scene i is stable from i+0.55 to i+1 (scene 0 from 0).
-    // The snap points below make the wheel "lock on" to whichever scene
-    // you're closest to instead of resting mid-transition.
-    const TAIL = 0.6;
-
+    // Timeline layout: each scene owns one equal scroll segment. Scroll movement
+    // scrubs the frame transition and the vignette internals together, so fast
+    // scrolling makes them move fast and slow scrolling lets the product
+    // moments breathe.
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: stack,
         start: "top 70px",
         end: "bottom bottom",
         scrub: 0.45,
-        onUpdate: self => setScene(Math.min(frames.length - 1, Math.floor(self.progress * frames.length)))
+        onUpdate: self => updateSceneProgress(self.progress)
       }
     });
+    gsap.set(frames.slice(1), { autoAlpha: 0, y: 34, scale: 0.988 });
     frames.forEach((f, i) => {
       if (i === 0) return;
-      tl.to(frames[i - 1], { autoAlpha: 0, y: -46, scale: 0.985, duration: 0.45 }, i)
-        .fromTo(f, { autoAlpha: 0, y: 46, scale: 0.985 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.45 }, i + 0.1);
+      tl.to(frames[i - 1], { autoAlpha: 0, y: -34, scale: 0.988, duration: 0.22, ease: "power1.out" }, i)
+        .fromTo(f, { autoAlpha: 0, y: 34, scale: 0.988 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.22, ease: "power1.out" }, i);
     });
-    tl.to({}, { duration: TAIL }); // the last scene gets a full segment too
+    tl.to({}, { duration: 1 }, frames.length - 1); // the last scene gets a full segment too
 
-    // Lock-on: snap scroll to the stable point of the nearest scene.
-    const dur = tl.duration();
-    const snapPoints = frames.map((_, i) => (i === 0 ? 0 : Math.min(1, (i + 0.55) / dur)));
-    snapPoints.push(1);
-    ScrollTrigger.create({
-      trigger: stack,
-      start: "top 70px",
-      end: "bottom bottom",
-      snap: { snapTo: snapPoints, duration: { min: 0.25, max: 0.7 }, delay: 0.08, ease: "power2.inOut" }
-    });
-
-    // Clicking a dot rides the same smooth scroll to that scene's resting point,
-    // so the buttons and the wheel land on exactly the same spots.
+    // Clicking a dot jumps to the start of that scene segment; scrolling after
+    // that controls the product vignette itself.
     dots.forEach((dot, i) => {
       dot.addEventListener("click", () => {
         const st = tl.scrollTrigger;
-        const y = st.start + snapPoints[i] * (st.end - st.start);
+        const y = st.start + (i / frames.length) * (st.end - st.start);
         if (lenis) lenis.scrollTo(y, { duration: 0.7 });
         else window.scrollTo({ top: y, behavior: "smooth" });
       });
@@ -182,11 +241,11 @@ if (animated) {
     const items = gsap.utils.toArray(sel);
     if (!items.length) continue;
     gsap.from(items, {
-      y: 36,
       opacity: 0,
-      duration: 0.7,
-      ease: "power3.out",
-      stagger: 0.09,
+      duration: 0.55,
+      ease: "power2.out",
+      stagger: 0.06,
+      clearProps: "opacity",
       scrollTrigger: { trigger: items[0].parentElement, start: "top 82%", once: true }
     });
   }
@@ -284,4 +343,3 @@ document.querySelectorAll(".faq-list details").forEach(d => {
     }
   });
 });
-
