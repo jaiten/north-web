@@ -1,9 +1,11 @@
 // North website — scroll engine (GSAP + ScrollTrigger + Lenis, CDN).
-// Animations are on by default for everyone; ?noanim forces the static
-// version, which is also the fallback when the CDN is blocked.
+// Animations are on by default; ?noanim forces the static version, which is
+// also the fallback when the CDN is blocked or the visitor's system asks for
+// reduced motion.
 
 const qs = new URLSearchParams(location.search);
-const noAnim = qs.has("noanim");
+const noAnim = qs.has("noanim") ||
+  matchMedia("(prefers-reduced-motion: reduce)").matches;
 const hasGsap = typeof window.gsap !== "undefined" && typeof window.ScrollTrigger !== "undefined";
 const animated = hasGsap && !noAnim;
 
@@ -299,10 +301,10 @@ if (animated) {
 // ---------------------------------------------------------------------------
 
 const MOCK_LINES = [
-  "habit brought you here, not intention. let's point that energy somewhere real.",
-  "the algorithm wanted your next 40 minutes. North said no for you.",
-  "past you doesn't trust this moment, and past you was right.",
-  "nothing in that feed will matter tomorrow. the thing you're avoiding probably will."
+  "Habit brought you here, not intention. That energy has somewhere better to go.",
+  "The feed was ready to spend your next forty minutes. North declined on your behalf.",
+  "Past you didn't trust this moment, and past you had a point.",
+  "Nothing in that feed will matter tomorrow. The thing you're avoiding probably will."
 ];
 let mockIdx = 0;
 const mockLine = document.getElementById("mock-line");

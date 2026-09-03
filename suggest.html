@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>suggest a feature for North</title>
+  <title>Suggest a feature for North</title>
   <meta name="description" content="Tell North what to build next. A quick suggestion box for the free-forever focus extension. No account needed.">
   <link rel="canonical" href="https://northfocus.app/suggest.html">
   <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -13,12 +13,12 @@
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://northfocus.app/suggest.html">
-  <meta property="og:title" content="suggest a feature for North">
+  <meta property="og:title" content="Suggest a feature for North">
   <meta property="og:description" content="Tell North what to build next. No account needed.">
   <meta property="og:image" content="https://northfocus.app/assets/og-image.png">
   <meta property="og:site_name" content="North">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="suggest a feature for North">
+  <meta name="twitter:title" content="Suggest a feature for North">
   <meta name="twitter:description" content="Tell North what to build next. No account needed.">
   <meta name="twitter:image" content="https://northfocus.app/assets/og-image.png">
 
@@ -105,69 +105,69 @@
         <svg class="ico-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         <svg class="ico-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5 5l1.8 1.8M17.2 17.2L19 19M19 5l-1.8 1.8M6.8 17.2L5 19"/></svg>
       </button>
-      <a class="btn primary" href="https://chromewebstore.google.com/detail/bbfpkfifjmcebiobbmfhdgpnclegaedo" target="_blank" rel="noopener">add to browser</a>
+      <a class="btn primary" href="https://chromewebstore.google.com/detail/bbfpkfifjmcebiobbmfhdgpnclegaedo" target="_blank" rel="noopener">Add to browser</a>
     </div>
   </header>
 
   <main class="suggest">
-    <p class="eyebrow">suggestion box</p>
-    <h1>what should North do next?</h1>
-    <p class="lede">a feature you wish it had, a site that needs better handling, a rough edge that bugs you. North is free for life and built in the open, so the roadmap is mostly just this box. say it plainly.</p>
+    <p class="eyebrow">Suggestion box</p>
+    <h1>What should North do next?</h1>
+    <p class="lede">A feature you wish it had, a site that needs better handling, a rough edge that gets in your way. North is free for life and built in the open, so this box is most of the roadmap. Say it plainly.</p>
 
     <div class="card">
       <form id="suggest-form" novalidate>
         <input class="gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
 
         <div class="field">
-          <label for="kind">what kind of thing is this? <span class="opt">(optional)</span></label>
+          <label for="kind">What kind of thing is this? <span class="opt">(optional)</span></label>
           <select id="kind" name="kind">
-            <option value="a feature idea">a feature idea</option>
-            <option value="a bug or something broken">a bug, or something broken</option>
-            <option value="a site that needs better handling">a site that needs better handling</option>
-            <option value="why i uninstalled">why i uninstalled</option>
-            <option value="something else">something else</option>
+            <option value="a feature idea">A feature idea</option>
+            <option value="a bug or something broken">A bug, or something broken</option>
+            <option value="a site that needs better handling">A site that needs better handling</option>
+            <option value="why i uninstalled">Why I uninstalled</option>
+            <option value="something else">Something else</option>
           </select>
         </div>
 
         <div class="field">
-          <label for="message">your suggestion</label>
+          <label for="message">Your suggestion</label>
           <textarea id="message" name="message" required
-            placeholder="the more specific, the better. what would it do, and when would you reach for it?"></textarea>
+            placeholder="The more specific, the better. What would it do, and when would you reach for it?"></textarea>
           <div class="field-meta">
             <span class="count" id="count">0 words</span>
-            <span>no account, no sign-in. just the idea.</span>
+            <span>No account, no sign-in. Just the idea.</span>
           </div>
         </div>
 
         <div class="field">
-          <label for="email">your email <span class="opt">(optional, only if you want a reply)</span></label>
+          <label for="email">Your email <span class="opt">(optional, only if you want a reply)</span></label>
           <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com">
         </div>
 
         <div class="actions">
-          <button class="btn primary" type="submit" id="submit-btn">send it</button>
+          <button class="btn primary" type="submit" id="submit-btn">Send it</button>
         </div>
 
         <div class="result hidden" id="result"></div>
         <div class="config-warn hidden" id="config-warn">
-          heads up: this box isn't connected yet. set <code>FORMSPREE_ID</code> in suggest.html.
+          This box isn't connected yet. Set <code>FORMSPREE_ID</code> in suggest.html.
         </div>
 
-        <p class="note">this goes straight to the person who builds North. it isn't public, and nothing else about you is collected.</p>
+        <p class="note">This goes straight to the person who builds North. It isn't public, and nothing else about you is collected.</p>
       </form>
 
       <div class="thanks hidden" id="thanks">
         <div class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 19 20.5 12 17 5 20.5Z"/></svg></div>
-        <h2>got it. thank you.</h2>
-        <p>your idea landed. if you left an email, you might hear back.</p>
-        <button class="link-btn" id="another">send another</button>
+        <h2>Got it. Thank you.</h2>
+        <p>Your suggestion landed. If you left an email, you may hear back.</p>
+        <button class="link-btn" id="another">Send another</button>
       </div>
     </div>
   </main>
 
   <footer class="footer">
     <div class="footer-inner">
-      <p><a href="index.html">back to northfocus.app</a> · free for life</p>
+      <p><a href="index.html">Back to northfocus.app</a> · Free for life</p>
     </div>
   </footer>
 

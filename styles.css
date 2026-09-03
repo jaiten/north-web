@@ -9,10 +9,12 @@
   --text: #20234a;
   --text-dim: #565b82;
   --text-faint: #9094b4;
-  --accent: #6366f1;
+  --accent: #5b6ef5;
   --accent-deep: #4f46e5;
-  --teal: #0ea5a0;
-  --grad: linear-gradient(135deg, #6366f1, #2dd4bf);
+  --teal: #0d9488;
+  /* Reserved for the brand mark and the one gradient headline. Buttons and
+     bars use flat colour so the page reads as a product, not a promo. */
+  --grad: linear-gradient(135deg, #5b6ef5, #2dd4bf);
   --shadow-sm: 0 2px 10px rgba(32, 35, 90, 0.06);
   --shadow: 0 18px 50px rgba(60, 60, 140, 0.13);
   --nav-bg: rgba(255, 255, 255, 0.85);
@@ -33,7 +35,10 @@
   --text: #e8ecf8;
   --text-dim: #9aa7c4;
   --text-faint: #5f6b8d;
-  --accent-deep: #8b8ef8;
+  /* Deep enough that white button text clears 4.5:1, light enough that the
+     focus outline still separates from the page. */
+  --accent: #5566ee;
+  --accent-deep: #a5b0ff;
   --teal: #2dd4bf;
   --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
   --shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
@@ -65,7 +70,7 @@ h1, h2, h3 { letter-spacing: -0.02em; line-height: 1.12; margin: 0; }
 a { color: var(--accent-deep); }
 .hidden { display: none; }
 
-::selection { background: rgba(99, 102, 241, 0.22); }
+::selection { background: rgba(91, 110, 245, 0.2); }
 a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible {
   outline: 2.5px solid var(--accent);
   outline-offset: 3px;
@@ -78,10 +83,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(42% 36% at 18% 12%, rgba(255, 196, 86, 0.20), transparent 70%),
-    radial-gradient(38% 32% at 85% 25%, rgba(99, 102, 241, 0.10), transparent 70%),
-    radial-gradient(36% 30% at 60% 90%, rgba(45, 212, 191, 0.12), transparent 70%);
-  animation: drift 26s ease-in-out infinite alternate;
+    radial-gradient(42% 36% at 18% 12%, rgba(255, 196, 86, 0.14), transparent 70%),
+    radial-gradient(38% 32% at 85% 25%, rgba(91, 110, 245, 0.08), transparent 70%),
+    radial-gradient(36% 30% at 60% 90%, rgba(45, 212, 191, 0.09), transparent 70%);
+  animation: drift 32s ease-in-out infinite alternate;
 }
 @keyframes drift {
   from { transform: translate3d(-2%, -1%, 0) scale(1); }
@@ -89,9 +94,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 }
 :root[data-theme="dark"] .aurora {
   background:
-    radial-gradient(38% 32% at 22% 18%, rgba(99, 102, 241, 0.17), transparent 70%),
-    radial-gradient(34% 28% at 78% 65%, rgba(45, 212, 191, 0.10), transparent 70%),
-    radial-gradient(28% 24% at 60% 12%, rgba(168, 85, 247, 0.09), transparent 70%);
+    radial-gradient(38% 32% at 22% 18%, rgba(91, 110, 245, 0.14), transparent 70%),
+    radial-gradient(34% 28% at 78% 65%, rgba(45, 212, 191, 0.08), transparent 70%);
 }
 
 /* Reveal-on-scroll */
@@ -109,23 +113,24 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
   display: inline-block;
   font: 700 15px/1 var(--font);
   padding: 14px 26px;
-  border-radius: 13px;
+  border-radius: 12px;
   text-decoration: none;
   white-space: nowrap;
-  transition: transform 0.15s ease, box-shadow 0.25s ease;
+  border: 1.5px solid transparent;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.25s ease;
 }
-.btn:active { transform: scale(0.97); }
+.btn:active { transform: translateY(1px); }
 .btn.primary {
-  background: var(--grad);
-  background-origin: border-box;
+  background: var(--accent);
   color: #fff;
-  box-shadow: 0 8px 26px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 6px 18px rgba(91, 110, 245, 0.26);
 }
-.btn.primary:hover { box-shadow: 0 12px 36px rgba(99, 102, 241, 0.45); transform: translateY(-2px); }
-.btn.big { padding: 18px 36px; font-size: 17px; border-radius: 15px; }
+.btn.primary:hover { background: var(--accent-deep); box-shadow: 0 8px 24px rgba(91, 110, 245, 0.32); }
+:root[data-theme="dark"] .btn.primary:hover { background: #6b7bf5; }
+.btn.big { padding: 18px 36px; font-size: 17px; border-radius: 14px; }
 .btn.ghosted {
   color: var(--text-dim);
-  border: 1.5px solid var(--line);
+  border-color: var(--line);
   background: var(--bg-card);
 }
 .btn.ghosted:hover { border-color: var(--accent); color: var(--text); }
@@ -177,7 +182,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
   cursor: pointer;
   transition: border-color 0.2s, transform 0.15s;
 }
-.theme-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+.theme-btn:hover { border-color: var(--accent); color: var(--text); }
 .theme-btn svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 :root[data-theme="dark"] .theme-btn .ico-moon { display: none; }
 :root:not([data-theme="dark"]) .theme-btn .ico-sun { display: none; }
@@ -291,10 +296,9 @@ main { position: relative; z-index: 1; }
   box-shadow: var(--shadow);
   padding: 34px 32px;
   text-align: center;
-  transform: rotate(1.5deg);
   transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
-.mock-card:hover { transform: rotate(0deg) scale(1.02); box-shadow: 0 26px 70px rgba(60, 60, 140, 0.2); }
+.mock-card:hover { transform: translateY(-4px); box-shadow: 0 26px 70px rgba(60, 60, 140, 0.18); }
 .mock-mark {
   width: 56px; height: 56px;
   margin: 0 auto 14px;
@@ -304,7 +308,7 @@ main { position: relative; z-index: 1; }
   color: #fff;
   background: var(--grad);
   border-radius: 17px;
-  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 6px 20px rgba(91, 110, 245, 0.28);
 }
 .mock-headline { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
 .mock-sub { font-size: 13.5px; color: var(--text-dim); margin: 0 0 16px; min-height: 60px; transition: opacity 0.5s ease; }
@@ -324,7 +328,7 @@ main { position: relative; z-index: 1; }
   border-radius: 12px;
   margin-bottom: 9px;
 }
-.mock-btn.primary { background: var(--grad); color: #fff; box-shadow: 0 6px 18px rgba(99, 102, 241, 0.3); }
+.mock-btn.primary { background: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(91, 110, 245, 0.26); }
 .mock-btn.ghost { border: 1.5px solid var(--line); color: var(--text-dim); }
 
 /* Floating proof chips around the mock */
@@ -592,7 +596,7 @@ html.no-anim #problem .pw { opacity: 1; }
   color: #fff;
   background: var(--grad);
   border-radius: 13px;
-  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 5px 16px rgba(91, 110, 245, 0.28);
 }
 .ph-block strong { font-size: 14.5px; font-weight: 800; }
 .ph-block span { font-size: 11.5px; color: var(--text-faint); font-weight: 600; }
@@ -650,7 +654,7 @@ html.no-anim #problem .pw { opacity: 1; }
   display: block;
   height: 100%;
   border-radius: 99px;
-  background: var(--grad);
+  background: var(--accent);
   width: 100%;
 }
 .show.visible .reel-timer i { animation: drain 7s linear 1.9s both; }
@@ -839,7 +843,7 @@ html.no-anim #problem .pw { opacity: 1; }
   width: 34px;
   height: 34px;
   background: var(--grad);
-  box-shadow: 0 10px 26px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 8px 22px rgba(91, 110, 245, 0.26);
 }
 .show.visible .breath-ring.r1 { animation: unlock-breathe 2.8s ease-in-out 0.2s infinite; }
 .show.visible .breath-ring.r2 { animation: unlock-breathe 2.8s ease-in-out 0.35s infinite reverse; }
@@ -866,7 +870,7 @@ html.no-anim #problem .pw { opacity: 1; }
   height: 100%;
   width: 0;
   border-radius: inherit;
-  background: var(--grad);
+  background: var(--accent);
 }
 .show.visible .wait-bar i { animation: wait-fill 3.8s linear 0.35s both; }
 @keyframes wait-fill { to { width: 72%; } }
@@ -1161,3 +1165,17 @@ html.no-anim .stack-frame {
 }
 html.no-anim #features .stack-frame:first-child { margin-top: 0; }
 html.no-anim .stack-dots { display: none; }
+
+
+/* Respect the system setting: keep the layout, drop the motion. script.js also
+   reads this (noAnim) and skips the GSAP timelines entirely. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .aurora { animation: none; }
+  .reveal { opacity: 1; transform: none; }
+}
