@@ -4,15 +4,18 @@
   /* Paper — daylight. One soothing pine green on cream stock. Matches the
      extension's shared.css token for token, so the site and the product feel
      like one thing. */
-  --bg: #f6f1e5;
-  --bg-card: #fdfbf4;
-  --bg-soft: #ede7d7;
-  --bg-inset: #f0ebdc;
-  --line: rgba(52, 62, 48, 0.14);
-  --line-strong: rgba(52, 62, 48, 0.27);
+  /* Three genuinely separated surfaces: the page is the tinted stock, a card
+     is a white sheet laid on it, and anything inset is a well pressed into the
+     sheet. Cream-on-cream with a hairline reads as mush. */
+  --bg: #f0ead9;        /* tinted stock */
+  --bg-card: #fefdf8;   /* a sheet laid on it */
+  --bg-soft: #eae3d1;   /* recessed */
+  --bg-inset: #eae3d1;
+  --line: rgba(52, 62, 48, 0.16);
+  --line-strong: rgba(52, 62, 48, 0.30);
   --text: #28302b;
   --text-dim: #5a6259;
-  --text-faint: #656d63;
+  --text-faint: #5f675d;
   --accent: #356b52;
   --accent-deep: #2a5642;
   --accent-soft: rgba(53, 107, 82, 0.10);
@@ -20,11 +23,13 @@
   --ok: #356b52;
   --ochre: #7a5a1e;
   --grad: linear-gradient(150deg, #4e8c6a, #356b52 52%, #24503c);
-  --grad-text: linear-gradient(120deg, #356b52 25%, #6d8f5a);
-  --shadow-sm: 0 1px 2px rgba(40, 48, 43, 0.07);
-  --shadow: 0 1px 2px rgba(40, 48, 43, 0.06), 0 18px 44px rgba(40, 48, 43, 0.10);
-  --nav-bg: rgba(246, 241, 229, 0.86);
-  --frost: rgba(253, 251, 244, 0.8);
+  /* The pale end sat at 3.05:1 on the page — just over the large-text line.
+     Deepened to 3.9:1 so a 56px headline is not riding the threshold. */
+  --grad-text: linear-gradient(120deg, #356b52 25%, #5c7d4c);
+  --shadow-sm: 0 1px 2px rgba(46, 54, 40, 0.07), 0 1px 1px rgba(46, 54, 40, 0.04);
+  --shadow: 0 1px 2px rgba(46, 54, 40, 0.06), 0 20px 44px -10px rgba(46, 54, 40, 0.18);
+  --nav-bg: rgba(240, 234, 217, 0.86);
+  --frost: rgba(254, 253, 248, 0.8);
   --radius: 18px;
   --paper-mottle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='700'%3E%3Cfilter id='m' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.005' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.13'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='700' height='700' filter='url(%23m)'/%3E%3C/svg%3E");
   --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.62' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.11'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)'/%3E%3C/svg%3E");
@@ -46,7 +51,7 @@
   --line-strong: rgba(219, 224, 205, 0.26);
   --text: #ede8d8;
   --text-dim: #a8ae9c;
-  --text-faint: #7e8676;
+  --text-faint: #848c7c;
   --accent: #47805f;
   --accent-deep: #8fbf9f;
   --accent-soft: rgba(71, 128, 95, 0.22);
@@ -113,8 +118,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(115% 70% at 50% 0%, rgba(255, 252, 240, 0.7), transparent 62%),
-    radial-gradient(120% 60% at 50% 108%, rgba(88, 104, 78, 0.14), transparent 70%);
+    radial-gradient(140% 110% at 50% 26%, rgba(255, 253, 246, 0.72), transparent 78%),
+    radial-gradient(140% 70% at 50% 114%, rgba(96, 112, 84, 0.07), transparent 74%);
 }
 .aurora::before {
   content: "";
