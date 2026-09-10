@@ -36,17 +36,17 @@ function showResult(text, kind) {
 form.addEventListener("submit", async e => {
   e.preventDefault();
   if (!messageEl.value.trim()) {
-    showResult("write a line or two first, then send.", "err");
+    showResult("Write a line or two first, then send.", "err");
     messageEl.focus();
     return;
   }
   if (!configured) {
-    showResult("this box isn't connected to a form yet. set FORMSPREE_ID in suggest.html.", "err");
+    showResult("This box isn't connected to a form yet. Set FORMSPREE_ID in suggest.html.", "err");
     return;
   }
 
   submitBtn.disabled = true;
-  submitBtn.textContent = "sending...";
+  submitBtn.textContent = "Sending…";
 
   try {
     const res = await fetch(`https://formspree.io/f/${formId}`, {
@@ -60,13 +60,13 @@ form.addEventListener("submit", async e => {
     } else {
       const data = await res.json().catch(() => ({}));
       const msg = data?.errors?.map(x => x.message).join(", ");
-      showResult(msg || "something went wrong sending that. try again in a moment?", "err");
+      showResult(msg || "Something went wrong sending that. Try again in a moment.", "err");
     }
   } catch {
-    showResult("couldn't reach the server. check your connection and try again.", "err");
+    showResult("Couldn't reach the server. Check your connection and try again.", "err");
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = "send it";
+    submitBtn.textContent = "Send it";
   }
 });
 

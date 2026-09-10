@@ -1,27 +1,36 @@
-# North Website
+# North — website
 
-Static website for North.
+The marketing site for [North](https://northfocus.app), a free-forever browser
+extension that blocks short-form video and distracting sites.
 
-## Run Locally
+Static HTML, CSS and a little vanilla JavaScript. No build step, no framework,
+no package.json, and no runtime dependencies — the page loads nothing from a
+CDN and uses the system UI font stack, so it renders identically offline.
 
-This site does not require a build step or package installation.
+## Run locally
 
-1. Open PowerShell in this folder:
+```bash
+python3 -m http.server 8000
+```
 
-   ```powershell
-   cd C:\Users\jaiten\Documents\Code\North-Website
-   ```
+Then open http://localhost:8000.
 
-2. Start a local static server:
+## Layout
 
-   ```powershell
-   python -m http.server 8000
-   ```
+```
+index.html    the landing page
+suggest.html  feature suggestion box (posts to Formspree)
+goodbye.html  shown by the extension on uninstall
+styles.css    the whole design system and every page's styles
+script.js     nav, mobile menu, scroll reveals, FAQ
+theme.js      light/dark, shared by every page (auto: light by day, dark after sunset)
+assets/       icons, favicon, social preview image
+llms.txt      a plain-language summary for language models
+```
 
-3. Open the site in your browser:
+## Design
 
-   ```text
-   http://localhost:8000
-   ```
-
-To stop the server, press `Ctrl+C` in the PowerShell window.
+One pine green on cream, with a deep-green band carrying each of the two things
+that differentiate North (the unlock, and the price). Tokens live at the top of
+`styles.css` and mirror the extension's `pages/shared.css`, so the site and the
+product stay in step.
