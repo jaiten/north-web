@@ -8,9 +8,6 @@
   <link rel="canonical" href="https://northfocus.app/suggest.html">
   <link rel="icon" type="image/png" href="assets/favicon.png">
 
-  <link rel="preconnect" href="https://fonts.bunny.net">
-  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=plus-jakarta-sans:400,600,700,800&display=swap">
-
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://northfocus.app/suggest.html">
   <meta property="og:title" content="Suggest a feature for North">
@@ -47,16 +44,9 @@
   <style>
     .suggest { position: relative; z-index: 1; max-width: 620px; margin: 0 auto;
       padding: clamp(24px, 6vh, 56px) clamp(20px, 5vw, 28px) 70px; }
-    .suggest h1 { font-size: clamp(28px, 5vw, 40px); font-weight: 800; }
+    .suggest h1 { font-size: clamp(30px, 5vw, 42px); }
     .suggest .lede { color: var(--text-dim); margin: 14px 0 0; }
-    .suggest .card {
-      margin-top: 30px;
-      background: var(--bg-card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: clamp(22px, 4vw, 34px);
-    }
+    .suggest .card { margin-top: 30px; box-shadow: var(--shadow); padding: clamp(22px, 4vw, 34px); }
     .suggest .field { margin-bottom: 20px; }
     .suggest .field:last-of-type { margin-bottom: 0; }
     .suggest label { display: block; font-weight: 700; font-size: 14px; margin-bottom: 8px; }
@@ -95,17 +85,19 @@
 <body>
   <div class="aurora" aria-hidden="true"></div>
 
-  <header class="nav">
-    <a class="nav-logo" href="index.html">
-      <img src="assets/icon128.png" alt="North logo" width="34" height="34">
-      <span>North</span>
-    </a>
-    <div class="nav-right">
-      <button class="theme-btn" id="btn-theme" aria-label="Switch between light and dark theme">
-        <svg class="ico-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-        <svg class="ico-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5 5l1.8 1.8M17.2 17.2L19 19M19 5l-1.8 1.8M6.8 17.2L5 19"/></svg>
-      </button>
-      <a class="btn primary" href="https://chromewebstore.google.com/detail/bbfpkfifjmcebiobbmfhdgpnclegaedo" target="_blank" rel="noopener">Add to browser</a>
+  <header class="nav" id="nav">
+    <div class="wrap nav-inner">
+      <a class="nav-logo" href="index.html">
+        <img src="assets/icon128.png" alt="" width="34" height="34">
+        <span>North</span>
+      </a>
+      <div class="nav-right">
+        <button class="theme-btn" id="btn-theme" aria-label="Switch between light and dark theme">
+          <svg class="ico-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="ico-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5 5l1.8 1.8M17.2 17.2L19 19M19 5l-1.8 1.8M6.8 17.2L5 19"/></svg>
+        </button>
+        <a class="btn primary" href="https://chromewebstore.google.com/detail/bbfpkfifjmcebiobbmfhdgpnclegaedo" target="_blank" rel="noopener">Add to Chrome</a>
+      </div>
     </div>
   </header>
 
@@ -166,7 +158,7 @@
   </main>
 
   <footer class="footer">
-    <div class="footer-inner">
+    <div class="wrap footer-inner">
       <p><a href="index.html">Back to northfocus.app</a> · Free for life</p>
     </div>
   </footer>
