@@ -1,176 +1,169 @@
-// North — scroll engine.
-//
-// The page used to pull GSAP, ScrollTrigger and Lenis off a CDN. This does the
-// three things the page actually needs in a fraction of that: reveal elements
-// as they arrive, expose scroll progress through an element as a CSS variable,
-// and drive one pinned sequence. Everything else is CSS.
-//
-// Progress is published as custom properties (--p, --seq) rather than inline
-// styles, so the animation itself stays in the stylesheet where it belongs.
-
-const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-/* ------------------------------------------------------------------ nav --- */
-const nav = document.getElementById("nav");
-const links = document.getElementById("nav-links");
-const navToggle = document.getElementById("nav-toggle");
-
-addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 8), { passive: true });
-
-function setMenu(open) {
-  links.classList.toggle("open", open);
-  navToggle.setAttribute("aria-expanded", String(open));
-  navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-}
-navToggle.addEventListener("click", () => setMenu(!links.classList.contains("open")));
-links.addEventListener("click", e => { if (e.target.tagName === "A") setMenu(false); });
-addEventListener("keydown", e => { if (e.key === "Escape") setMenu(false); });
-matchMedia("(min-width: 900px)").addEventListener("change", e => e.matches && setMenu(false));
-
-/* --------------------------------------------------------------- reveal --- */
-const revealables = [...document.querySelectorAll("[data-reveal]")];
-if (REDUCED || !("IntersectionObserver" in window)) {
-  revealables.forEach(el => el.classList.add("in"));
-} else {
-  const io = new IntersectionObserver((entries, obs) => {
-    for (const e of entries) {
-      if (!e.isIntersecting) continue;
-      // Stagger children of a group rather than every element individually, so
-      // a row arrives as a row instead of a queue.
-      const kids = e.target.querySelectorAll("[data-stagger] > *");
-      if (kids.length) kids.forEach((k, i) => k.style.setProperty("--i", i));
-      e.target.classList.add("in");
-      obs.unobserve(e.target);
+﻿// North: small, local interactions. The extension preview does not change browser settings.
+(() => {
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const desktop = matchMedia('(min-width: 761px) and (min-height: 740px)');
+  const nav = document.getElementById('nav');
+  const links = document.getElementById('nav-links');
+  const menu = document.getElementById('nav-toggle');
+  function setMenu(open) {
+    links.classList.toggle('open', open);
+    menu.setAttribute('aria-expanded', String(open));
+    menu.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+  menu.addEventListener('click', () => setMenu(menu.getAttribute('aria-expanded') !== 'true'));
+  links.addEventListener('click', event => { if (event.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menu.getAttribute('aria-expanded') === 'true') {
+      setMenu(false); menu.focus();
     }
-  }, { rootMargin: "0px 0px -10% 0px", threshold: 0.12 });
-  revealables.forEach(el => io.observe(el));
-  requestAnimationFrame(() => {
-    revealables.forEach(el => {
-      if (el.getBoundingClientRect().top < innerHeight * 0.9) el.classList.add("in");
-    });
   });
-}
+  document.addEventListener('click', event => { if (!nav.contains(event.target)) setMenu(false); });
+  matchMedia('(min-width: 761px)').addEventListener('change', event => { if (event.matches) setMenu(false); });
 
-/* -------------------------------------------------------------- progress ---
-   One rAF loop, one layout read per element per frame, only while the element
-   is anywhere near the viewport. */
-const tracked = [...document.querySelectorAll("[data-progress]")].map(el => ({
-  el,
-  prop: el.dataset.progress || "--p",
-  // How far through the viewport the element travels before it counts as done.
-  from: parseFloat(el.dataset.from ?? "0"),
-  to: parseFloat(el.dataset.to ?? "1")
-}));
-
-const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
-let ticking = false;
-
-function frame() {
-  ticking = false;
-  const vh = innerHeight;
-  for (const t of tracked) {
-    const r = t.el.getBoundingClientRect();
-    if (r.bottom < -vh || r.top > vh * 2) continue;
-    // 0 when the element's top reaches the bottom of the viewport,
-    // 1 when its bottom reaches the top.
-    const span = r.height + vh;
-    const raw = (vh - r.top) / span;
-    const p = clamp((raw - t.from) / (t.to - t.from));
-    t.el.style.setProperty(t.prop, p.toFixed(4));
+  let observer;
+  function configureReveals() {
+    observer?.disconnect();
+    const elements = [...document.querySelectorAll('[data-reveal]')];
+    elements.forEach(el => el.classList.remove('reveal-ready'));
+    if (motion.matches || !('IntersectionObserver' in window)) return;
+    observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -35px 0px' });
+    elements.forEach(el => {
+      if (el.getBoundingClientRect().top > innerHeight && !el.classList.contains('in')) {
+        el.classList.add('reveal-ready'); observer.observe(el);
+      }
+    });
   }
-  updateSequence();
-}
-function onScroll() {
-  if (ticking) return;
-  ticking = true;
-  requestAnimationFrame(frame);
-}
 
-/* -------------------------------------------------------------- sequence ---
-   The pinned unlock section: a tall track with a sticky stage inside it. Scroll
-   position through the track picks which of the three steps is on stage, and
-   drives the timer ring inside step one. */
-const seq = document.querySelector("[data-sequence]");
-const steps = seq ? [...seq.querySelectorAll("[data-step]")] : [];
-const panels = seq ? [...seq.querySelectorAll("[data-panel]")] : [];
-const ringCount = document.getElementById("ring-count");
-let lastIndex = -1;
-
-function updateSequence() {
-  if (!seq) return;
-  const track = seq.querySelector(".seq-track");
-  const r = track.getBoundingClientRect();
-  const travel = r.height - innerHeight;
-  const p = clamp(-r.top / (travel || 1));
-  seq.style.setProperty("--seq", p.toFixed(4));
-
-  const n = steps.length;
-  // Bias slightly so each step holds the stage for its full share.
-  const index = Math.min(n - 1, Math.floor(p * n * 0.999));
-  if (index !== lastIndex) {
-    lastIndex = index;
-    steps.forEach((s, i) => s.classList.toggle("is-on", i === index));
-    panels.forEach((s, i) => s.classList.toggle("is-on", i === index));
-    seq.dataset.active = index;
+  const previews = {
+    video: { eyebrow: 'Less of the endless', title: 'A quieter feed.', description: 'Keep the videos you came for.\nLeave the infinite scroll behind.', rows: [
+      ['Short-form video', 'Shorts, Reels & Spotlight', true], ['TikTok', 'The whole site, a little further away', true], ['YouTube cleanup', 'Fewer recommendations and detours', true]
+    ] },
+    messages: { eyebrow: 'Keep the connection', title: 'People, without the feed.', description: 'Your inbox stays open.\nThe rabbit holes don’t.', rows: [
+      ['Instagram', 'Messages only', true], ['LinkedIn', 'Messages only', true], ['Facebook & X', 'Messages only', false]
+    ] },
+    boundaries: { eyebrow: 'Your day, your boundaries', title: 'Room for what matters.', description: 'A few boundaries you choose.\nA little help keeping them.', rows: [
+      ['Work hours', 'Monday–Friday · 9 am–5 pm', true], ['Daily site limit', '20 minutes, then a little space', true], ['Focus session', '50 minutes with your blocklist on', false]
+    ] }
+  };
+  const featureTabs = [...document.querySelectorAll('[data-feature]')];
+  const panel = document.getElementById('product-panel');
+  const settings = document.getElementById('demo-settings');
+  const feedback = document.getElementById('demo-feedback');
+  function selectFeature(key) {
+    const preview = previews[key];
+    featureTabs.forEach(tab => {
+      const selected = tab.dataset.feature === key;
+      tab.classList.toggle('active', selected);
+      tab.setAttribute('aria-selected', String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+    });
+    panel.setAttribute('aria-labelledby', `tab-${key}`);
+    document.getElementById('demo-eyebrow').textContent = preview.eyebrow;
+    document.getElementById('demo-title').textContent = preview.title;
+    document.getElementById('demo-description').innerText = preview.description;
+    settings.replaceChildren();
+    preview.rows.forEach((row, index) => {
+      const item = document.createElement('div'); item.className = 'demo-setting';
+      const copy = document.createElement('span');
+      const title = document.createElement('strong'); title.textContent = row[0];
+      const note = document.createElement('small'); note.textContent = row[1];
+      copy.append(title, note);
+      const toggle = document.createElement('button'); toggle.className = 'switch';
+      toggle.type = 'button'; toggle.setAttribute('role', 'switch');
+      toggle.setAttribute('aria-label', `${row[0]} (preview)`);
+      toggle.setAttribute('aria-checked', String(row[2]));
+      toggle.addEventListener('click', () => {
+        preview.rows[index][2] = !preview.rows[index][2];
+        toggle.setAttribute('aria-checked', String(preview.rows[index][2]));
+        feedback.textContent = `${row[0]} ${preview.rows[index][2] ? 'on' : 'off'} in this preview. Your browser settings haven’t changed.`;
+      });
+      item.append(copy, toggle); settings.append(item);
+    });
+    feedback.textContent = 'Try a switch. This is just a preview.';
   }
-  // Progress within the current step fills the ring and runs the countdown.
-  const within = clamp(p * n - index);
-  seq.style.setProperty("--step-p", within.toFixed(4));
-  if (ringCount && index === 0) ringCount.textContent = Math.max(0, Math.round(60 * (1 - within)));
-}
+  featureTabs.forEach(tab => tab.addEventListener('click', () => selectFeature(tab.dataset.feature)));
+  function tabKeys(tabs, select, orientation) {
+    tabs.forEach((tab, index) => tab.addEventListener('keydown', event => {
+      let next;
+      if (event.key === 'Home') next = 0;
+      if (event.key === 'End') next = tabs.length - 1;
+      if (event.key === (orientation === 'vertical' ? 'ArrowDown' : 'ArrowRight')) next = (index + 1) % tabs.length;
+      if (event.key === (orientation === 'vertical' ? 'ArrowUp' : 'ArrowLeft')) next = (index - 1 + tabs.length) % tabs.length;
+      if (next === undefined) return;
+      event.preventDefault(); tabs[next].focus(); select(tabs[next]);
+    }));
+  }
+  tabKeys(featureTabs, tab => selectFeature(tab.dataset.feature), 'vertical');
+  selectFeature('video');
 
-if (!REDUCED && (tracked.length || seq)) {
-  addEventListener("scroll", onScroll, { passive: true });
-  addEventListener("resize", onScroll);
-  frame();
-} else if (seq) {
-  // Static fallback: show the sequence as three plain stacked steps.
-  seq.classList.add("no-pin");
-  steps.forEach(s => s.classList.add("is-on"));
-  panels.forEach(s => s.classList.add("is-on"));
-}
-
-/* ---------------------------------------------------------------- counts --- */
-if (!REDUCED) {
-  const nums = document.querySelectorAll("[data-count]");
-  const io = new IntersectionObserver((entries, obs) => {
-    for (const e of entries) {
-      if (!e.isIntersecting) continue;
-      obs.unobserve(e.target);
-      const target = parseFloat(e.target.dataset.count);
-      const started = performance.now();
-      const tick = now => {
-        const t = clamp((now - started) / 900);
-        // easeOutExpo, so it lands rather than crawls
-        const eased = t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-        e.target.textContent = Math.round(target * eased);
-        if (t < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
+  const pause = document.getElementById('unlock');
+  const pauseTabs = [...document.querySelectorAll('[data-pause]')];
+  const pausePanel = document.getElementById('pause-panel');
+  const pauseSteps = [
+    ['NOTHING TO DO BUT', 'Breathe.', 'A moment before moving on.', 'A wait you choose, from 10 seconds to 2 minutes.\nLeave the page, and the timer starts again.'],
+    ['A NOTE TO YOUR FUTURE SELF', 'Reflect.', 'Twenty words. In your own words.', 'Write at least 20 words about why you need this site.\nYour reasons stay in your browser, for you to revisit.'],
+    ['YOUR TIME IS STILL YOURS', 'Choose.', 'Go on with intention. Or go back.', 'Continue to the site, or return to what matters.\nShort-form feeds stay blocked.']
+  ];
+  let activeStep = -1;
+  let lastScrollStep = -1;
+  let pinned = false;
+  function selectPause(index) {
+    if (index === activeStep) return;
+    activeStep = index;
+    pauseTabs.forEach((tab, i) => {
+      tab.setAttribute('aria-selected', String(i === index)); tab.tabIndex = i === index ? 0 : -1;
+    });
+    pausePanel.setAttribute('aria-labelledby', `pause-tab-${index}`);
+    ['ring-overline', 'ring-word', 'ring-bottom', 'pause-description'].forEach((id, i) => {
+      document.getElementById(id).innerText = pauseSteps[index][i];
+    });
+    if (!pinned) pause.style.setProperty('--pause-progress', (index + 1) / 3);
+  }
+  function navigatePause(index) {
+    if (pinned) {
+      const top = pause.getBoundingClientRect().top + scrollY - 88;
+      const travel = pause.offsetHeight - innerHeight + 88;
+      // Keep the pinned illustration in place while moving to the chosen chapter.
+      scrollTo({ top: top + travel * ((index + .15) / 3), behavior: 'instant' });
+      lastScrollStep = index;
     }
-  }, { threshold: 0.6 });
-  nums.forEach(n => io.observe(n));
-}
-
-/* ------------------------------------------------------------ block lines --- */
-const LINES = [
-  "Habit brought you here, not intention. That energy has somewhere better to go.",
-  "You added this site to your blocklist for a reason. The reason hasn't changed; only the urge has.",
-  "The feed was ready to spend your next forty minutes. North declined on your behalf.",
-  "Nothing in that feed will matter tomorrow. The thing you're avoiding probably will."
-];
-const line = document.getElementById("shot-line");
-if (line && !REDUCED) {
-  let i = 0;
-  setInterval(() => {
-    i = (i + 1) % LINES.length;
-    line.style.opacity = "0";
-    setTimeout(() => { line.textContent = LINES[i]; line.style.opacity = "1"; }, 420);
-  }, 6000);
-}
-
-/* ------------------------------------------------------------------- faq --- */
-const faqs = [...document.querySelectorAll(".faq details")];
-faqs.forEach(d => d.addEventListener("toggle", () => {
-  if (d.open) faqs.forEach(o => { if (o !== d) o.open = false; });
-}));
+    selectPause(index);
+  }
+  pauseTabs.forEach(tab => tab.addEventListener('click', () => navigatePause(Number(tab.dataset.pause))));
+  tabKeys(pauseTabs, tab => navigatePause(Number(tab.dataset.pause)), 'horizontal');
+  function configureMotion() {
+    pinned = !motion.matches && desktop.matches;
+    document.documentElement.classList.toggle('scroll-enabled', pinned);
+    lastScrollStep = -1;
+    configureReveals();
+    frame();
+  }
+  function frame() {
+    nav.classList.toggle('scrolled', scrollY > 8);
+    if (!pinned) return;
+    const rect = pause.getBoundingClientRect();
+    if (rect.top > innerHeight || rect.bottom < 0) return;
+    const progress = Math.max(0, Math.min(1, (88 - rect.top) / (pause.offsetHeight - innerHeight + 88)));
+    pause.style.setProperty('--pause-progress', String(.08 + progress * .92));
+    const step = Math.min(2, Math.floor(progress * 3));
+    if (step !== lastScrollStep) { lastScrollStep = step; selectPause(step); }
+  }
+  let queued = false;
+  function queueFrame() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; frame(); });
+  }
+  addEventListener('scroll', queueFrame, { passive: true });
+  addEventListener('resize', queueFrame);
+  motion.addEventListener('change', configureMotion);
+  desktop.addEventListener('change', configureMotion);
+  selectPause(0);
+  configureMotion();
+})();

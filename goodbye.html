@@ -6,7 +6,7 @@
   <title>You uninstalled North</title>
   <meta name="description" content="North has been uninstalled. Here's what just got unblocked, and how to come back if you change your mind.">
   <meta name="robots" content="noindex">
-  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="icon" type="image/svg+xml" href="assets/north-mark.svg">
   <!-- Vercel Web Analytics -->
   <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -15,7 +15,8 @@
   <script>
     // first paint, flash-free: mirrors theme.js (auto = light by day, dark after sunset)
     (function () {
-      var s = localStorage.getItem("north-theme"), h = new Date().getHours();
+      var s; try { s = localStorage.getItem("north-theme"); } catch (e) {}
+      var h = new Date().getHours();
       document.documentElement.dataset.theme =
         (s === "light" || s === "dark") ? s : (h >= 19 || h < 7 ? "dark" : "light");
     })();
@@ -58,7 +59,7 @@
   <main class="goodbye">
     <div class="mark"><svg class="north-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 19 20.5 12 17 5 20.5Z"/></svg></div>
     <h1>Goodbye. No hard feelings.</h1>
-    <p class="lede" style="margin:0 auto 10px">North is uninstalled. That was always your call, and it was always going to be one click. Before you go, so this is a decision rather than an accident:</p>
+    <p class="lede" style="margin:0 auto 10px">North is uninstalled. Thanks for giving it a little space in your browser. Here is what changes:</p>
 
     <ul class="open-list">
       <li>Every blocked site is reachable again, as of now.</li>
@@ -66,7 +67,7 @@
       <li>Your schedules, budgets and keywords went with it.</li>
     </ul>
 
-    <p class="lede" style="margin:0 auto">If North got in your way somewhere, tell me. One honest sentence from you is worth a hundred guesses from me.</p>
+    <p class="lede" style="margin:0 auto">If something did not work for you, your feedback helps make North better. And if you ever want to come back, it will be here.</p>
 
     <div class="actions">
       <a class="btn primary big" href="https://chromewebstore.google.com/detail/bbfpkfifjmcebiobbmfhdgpnclegaedo" target="_blank" rel="noopener">Reinstall North</a>

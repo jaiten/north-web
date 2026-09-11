@@ -1,41 +1,20 @@
-// North website theme.
-// "auto" is the default: light by day, dark after sunset, read from the
-// visitor's own local clock (so it follows their timezone with no location
-// permission and no tracking). Clicking the toggle pins an explicit light/dark
-// choice that overrides auto from then on.
-//
-// These hours are a deliberate approximation of sunset/sunrise. True
-// astronomical times would need the visitor's latitude (a geolocation prompt),
-// which the no-tracking brand avoids. Tweak DUSK/DAWN to taste.
-(function () {
-  var KEY = "north-theme";
-  var DUSK = 19; // 7pm and later counts as night
-  var DAWN = 7;  // before 7am counts as night
-
-  function pinned() {
-    var v = localStorage.getItem(KEY);
-    return v === "light" || v === "dark";
+﻿// Shared theme. A saved preference wins; otherwise follow local daytime.
+(() => {
+  const key = 'north-theme';
+  let selected;
+  try { selected = localStorage.getItem(key); } catch (_) { /* Storage can be unavailable. */ }
+  const button = document.getElementById('btn-theme');
+  function apply() {
+    const hour = new Date().getHours();
+    const theme = selected === 'light' || selected === 'dark' ? selected : (hour >= 19 || hour < 7 ? 'dark' : 'light');
+    document.documentElement.dataset.theme = theme;
+    button?.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`);
   }
-  function nightNow() {
-    var h = new Date().getHours();
-    return h >= DUSK || h < DAWN;
-  }
-  function applyAuto() {
-    if (pinned()) return;
-    document.documentElement.dataset.theme = nightNow() ? "dark" : "light";
-  }
-
-  // The inline head script already painted the right theme; re-apply here and
-  // keep it in sync if the page is left open across sunrise or sunset.
-  applyAuto();
-  setInterval(applyAuto, 60 * 1000);
-
-  var btn = document.getElementById("btn-theme");
-  if (btn) {
-    btn.addEventListener("click", function () {
-      var next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-      document.documentElement.dataset.theme = next;
-      try { localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
-    });
-  }
+  button?.addEventListener('click', () => {
+    selected = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem(key, selected); } catch (_) { /* Keep preference for this visit. */ }
+    apply();
+  });
+  apply();
+  setInterval(apply, 60000);
 })();

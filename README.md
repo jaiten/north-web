@@ -1,36 +1,35 @@
-# North — website
+﻿# North
 
-The marketing site for [North](https://northfocus.app), a free-forever browser
-extension that blocks short-form video and distracting sites.
-
-Static HTML, CSS and a little vanilla JavaScript. No build step, no framework,
-no package.json, and no runtime dependencies — the page loads nothing from a
-CDN and uses the system UI font stack, so it renders identically offline.
+The website for [North](https://northfocus.app), a free browser extension that blocks distracting sites and short-form video.
 
 ## Run locally
 
 ```bash
-python3 -m http.server 8000
+python -m http.server 8000
 ```
 
-Then open http://localhost:8000.
+Open http://localhost:8000. Static HTML, CSS and vanilla JavaScript; no build step or runtime framework. Fonts are served locally. The existing Vercel website analytics and Formspree suggestion endpoint remain in place.
 
-## Layout
+## Files
 
-```
-index.html    the landing page
-suggest.html  feature suggestion box (posts to Formspree)
-goodbye.html  shown by the extension on uninstall
-styles.css    the whole design system and every page's styles
-script.js     nav, mobile menu, scroll reveals, FAQ
-theme.js      light/dark, shared by every page (auto: light by day, dark after sunset)
-assets/       icons, favicon, social preview image
-llms.txt      a plain-language summary for language models
-```
+- `index.html` — landing page and structured search metadata
+- `styles.css` — shared design system, responsive layouts and motion
+- `script.js` — preview tabs and switches, navigation, scroll reveals and pause sequence
+- `theme.js` — shared light/dark preference, with a local daytime default
+- `suggest.html`, `suggest.js` — existing feature suggestion form
+- `goodbye.html` — uninstall page
+- `assets/north-mark.svg`, `assets/north-symbols.svg` — compass mark and UI symbols
+- `assets/og-image.png` — branded social preview
+- `assets/fonts/` — locally hosted DM Sans and Instrument Serif, with OFL licenses
 
-## Design
+## Brand and motion
 
-One pine green on cream, with a deep-green band carrying each of the two things
-that differentiate North (the unlock, and the price). Tokens live at the top of
-`styles.css` and mirror the extension's `pages/shared.css`, so the site and the
-product stay in step.
+“A little less feed. A little more life.” Warm paper, pine green, an editorial serif and a quiet sans-serif interface. Copy offers a choice without shame or urgency. Theme tokens live at the top of `styles.css`.
+
+The extension interface is an interactive website preview; its switches do not change browser settings. Feature tabs support arrow keys, Home and End. The three-stage pause sequence follows scrolling on taller desktop screens and can also be navigated with its tabs. Mobile, short viewports and reduced-motion preferences get an unpinned layout with all three steps explained. Below-the-fold reveals use IntersectionObserver, and content stays visible without JavaScript.
+
+The theme button saves a preference locally when storage is available. Otherwise the site follows local daytime (light from 7am to 7pm).
+
+## Verification
+
+Reviewed in headless Edge at widths from 320px to 1440px. Checked preview switches, tab keyboard navigation, pause chapters, mobile menu, FAQs, saved themes, reduced motion and the no-JavaScript fallback. Automated axe checks cover WCAG 2.1 A/AA on all three pages in both themes. The suggestion form was checked without sending a submission.
