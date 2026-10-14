@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review North</title>
+  <meta name="description" content="Using North? A short honest review helps other people find a free, no-account focus extension.">
+  <link rel="canonical" href="https://northfocus.app/review.html">
+  <link rel="icon" type="image/svg+xml" href="assets/north-mark.svg">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://northfocus.app/review.html">
+  <meta property="og:title" content="Review North">
+  <meta property="og:description" content="A short honest review helps other people find North.">
+  <meta property="og:image" content="https://northfocus.app/assets/og-image.png">
+  <meta property="og:site_name" content="North">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Review North">
+  <meta name="twitter:description" content="A short honest review helps other people find North.">
+  <meta name="twitter:image" content="https://northfocus.app/assets/og-image.png">
+
+  <!-- Vercel Web Analytics -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <script>
+    // first paint, flash-free: mirrors theme.js (auto = light by day, dark after sunset)
+    (function () {
+      var s; try { s = localStorage.getItem("north-theme"); } catch (e) {}
+      var h = new Date().getHours();
+      document.documentElement.dataset.theme =
+        (s === "light" || s === "dark") ? s : (h >= 19 || h < 7 ? "dark" : "light");
+    })();
+  </script>
+
+  
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .suggest { position: relative; z-index: 1; max-width: 620px; margin: 0 auto;
+      padding: clamp(24px, 6vh, 56px) clamp(20px, 5vw, 28px) 70px; }
+    .suggest h1 { font-size: clamp(30px, 5vw, 42px); }
+    .suggest .lede { color: var(--text-dim); margin: 14px 0 0; }
+    .suggest .card { margin-top: 30px; box-shadow: var(--shadow); padding: clamp(22px, 4vw, 34px); }
+    .suggest .field { margin-bottom: 20px; }
+    .suggest .field:last-of-type { margin-bottom: 0; }
+    .suggest label { display: block; font-weight: 700; font-size: 14px; margin-bottom: 8px; }
+    .suggest label .opt { color: var(--text-faint); font-weight: 600; }
+    .suggest textarea, .suggest input[type="email"], .suggest select {
+      width: 100%; font: inherit; font-size: 15px; color: var(--text);
+      background: var(--bg-inset); border: 1px solid var(--line);
+      border-radius: 13px; padding: 12px 14px; transition: border-color 0.15s;
+    }
+    .suggest textarea { resize: vertical; min-height: 130px; line-height: 1.55; }
+    .suggest textarea:focus, .suggest input:focus, .suggest select:focus { border-color: var(--accent); outline: none; }
+    .suggest .field-meta { display: flex; justify-content: space-between; gap: 10px;
+      margin-top: 8px; font-size: 12.5px; color: var(--text-faint); }
+    .suggest .count.done { color: var(--ok); font-weight: 700; }
+    .suggest .gotcha { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .suggest .actions { margin-top: 24px; }
+    .suggest .note { color: var(--text-faint); font-size: 13px; margin: 14px 0 0; }
+    .suggest .result { margin-top: 18px; padding: 14px 16px; border-radius: 13px;
+      font-size: 14.5px; font-weight: 600; }
+    .suggest .result.ok { background: var(--soft); color: var(--ok); }
+    .suggest .result.err { background: var(--well); color: var(--text); }
+    .suggest .config-warn { margin-top: 18px; padding: 12px 16px; border-radius: 13px;
+      background: rgba(245, 158, 11, 0.14); color: #b45309; font-size: 13.5px; }
+    :root[data-theme="dark"] .suggest .config-warn { color: #fbbf24; }
+    .suggest .thanks { text-align: center; padding: 18px 0; }
+    .suggest .thanks .mark { width: 56px; height: 56px; margin: 0 auto 18px;
+      display: grid; place-items: center; border-radius: 17px; background: var(--grad);
+      box-shadow: none; }
+    .suggest .thanks .mark svg { width: 54%; height: 54%; fill: #fff; }
+    .suggest .thanks h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .suggest .thanks p { color: var(--text-dim); margin: 0 0 18px; }
+    .suggest .link-btn { background: none; border: none; color: var(--accent-deep);
+      font: inherit; font-weight: 700; cursor: pointer; text-decoration: underline; }
+      .suggest .open-list { margin: 0 0 6px; padding-left: 20px; }
+    .suggest .open-list li { color: var(--text-dim); margin: 8px 0; }
+  </style>
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <div class="wrap nav-inner">
+      <a class="nav-logo" href="index.html">
+        <svg aria-hidden="true"><use href="assets/north-symbols.svg#mark"/></svg><span>north.</span>
+      </a>
+      <div class="nav-right">
+        <button class="theme-btn" id="btn-theme" aria-label="Switch between light and dark theme">
+          <svg class="ico-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="ico-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5 5l1.8 1.8M17.2 17.2L19 19M19 5l-1.8 1.8M6.8 17.2L5 19"/></svg>
+        </button>
+        <a class="btn primary" href="https://chromewebstore.google.com/detail/bbfpkfifjmcebiobbmfhdgpnclegaedo" target="_blank" rel="noopener">Add to Chrome</a>
+      </div>
+    </div>
+  </header>
+
+    <main class="suggest">
+    <p class="eyebrow">A small favour</p>
+    <h1>Using North? Tell people <em>what it's like.</em></h1>
+    <p class="lede">North is free, has no account and no ads, and is built by one person. It has almost no reviews, which means almost nobody finds it. An honest review, good or bad, is the most useful thing you can do for it.</p>
+
+    <div class="card">
+      <p style="margin:0 0 14px;font-weight:700">It takes about a minute. You could mention:</p>
+      <ul class="open-list">
+        <li>What you use it to block, and whether it held.</li>
+        <li>Anything that annoyed you or didn't work.</li>
+        <li>Whether you'd tell a friend who struggles with Shorts or Reels.</li>
+      </ul>
+      <div class="actions">
+        <a class="btn primary big" href="https://chromewebstore.google.com/detail/bbfpkfifjmcebiobbmfhdgpnclegaedo/reviews" target="_blank" rel="noopener">Write a review</a>
+      </div>
+      <p class="note">You'll need to be signed in to Google. If something is broken, <a class="text-link" href="suggest.html?from=review">tell me here</a> and I'll fix it. I read every message.</p>
+    </div>
+  </main>
+
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p><a href="index.html">Back to northfocus.app</a> · Free for life</p>
+    </div>
+  </footer>
+
+  <script src="theme.js" defer></script>
+</body>
+</html>
